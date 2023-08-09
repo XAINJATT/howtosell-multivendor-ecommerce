@@ -31,24 +31,25 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <div>
-                                <h5 class="mb-3 mb-md-0">Cities > <span class="text-secondary">City List</span></h5>
+                                <h5 class="mb-3 mb-md-0">Categories > <span class="text-secondary">Category List</span></h5>
                             </div>
                             <div class="d-flex align-items-center flex-wrap text-nowrap mr-1">
                                 <button type="button" class="btn btn-primary mb-2 mb-md-0"
                                         data-toggle="tooltip" title="Add City"
-                                        onclick="window.location.href='{{route('city.add')}}';">
-                                    <i class="fa fa-plus mr-1"></i>Add City
+                                        onclick="window.location.href='{{route('category.add')}}';">
+                                    <i class="fa fa-plus mr-1"></i>Add Category
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="city_table" class="table w-100">
+                            <table id="category_table" class="table w-100">
                                 <thead>
                                 <tr>
                                     <th style="width:10%;">#</th>
-                                    <th style="width:70%;">City</th>
+                                    <th style="width:25%;">Image</th>
+                                    <th style="width:45%;">Name</th>
                                     <th style="width:20%;">Action</th>
                                 </tr>
                                 </thead>
@@ -61,5 +62,5 @@
             </div>
         </div>
     </div>
-    @include('admin.city.delete')
+    @include('admin.category.delete')
 @endsection

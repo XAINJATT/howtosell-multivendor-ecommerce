@@ -16,7 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->text('name')->nullable();
             $table->text('slug')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

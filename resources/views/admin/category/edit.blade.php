@@ -1,9 +1,26 @@
 @extends('admin.layouts.app')
 @section('content')
+<style>
+        .label-style {
+            border: 1px solid grey;
+            border-radius: 7px;
+            padding: 42px 33px;
+        }
+
+        .input-style {
+            border: 1px grey !important;
+            padding: 35px 10px 29px 0;
+            display: none;
+        }
+
+        form div {
+            margin-bottom: 0;
+        }
+</style>
     <div class="page-content">
         <section class="contact-area pb-5">
             <div class="container">
-                <div class="row">
+                <div class="row justify-content-center">
                     <div class="col-12 mb-3">
                         @if(session()->has('message'))
                             <div class="alert alert-success">
@@ -15,47 +32,69 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-md-4 offset-md-4 grid-margin stretch-card">
+                    <div class="col-8 col-md-6">
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                     <div>
-                                        <h5 class="mb-3 mb-md-0">Cities > <span class="text-secondary">Edit City</span></h5>
+                                        <h5 class="mb-3 mb-md-0">Categories > <span class="text-secondary">Edit Category</span></h5>
                                     </div>
                                 </div>
                             </div>
-                            <?php
-                                $subCitiesArray = $city[0]->sub_cities != '' ? explode(",", $city[0]->sub_cities) : array();
-                            ?>
                             <div class="card-body">
-                                <form action="{{route('city.update')}}" method="post">
+                                <form action="{{route('category.update')}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="id" value="{{$city[0]->id}}">
+                                    <input type="hidden" name="id" value="{{$category->id}}">
+                                    <input type="hidden" name="old_image" value="{{$category->image}}" />
                                     <div class="row">
                                         <div class="col-md-12 mt-2">
-                                            <label for="city" class="font-weight-bold">City <span class="text-danger">*</span></label>
+                                            <label for="name" class="font-weight-bold">Name <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control"
                                                    placeholder="Enter City"
-                                                   name="city" value="{{$city[0]->city}}" id="city" required>
-                                            @error('city')
+                                                   name="name" value="{{$category->name}}" id="name" required>
+                                            @error('name')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>
+
                                         <div class="col-md-12 mt-2">
-                                            <label for="sub_cities" class="font-weight-bold">Sub Cities</label>
-                                            <select class="form-control select2" name="sub_cities[]" id="sub_cities" multiple>
-                                                <option value="" disabled="disabled">Select City</option>
-                                                @foreach($Cities as $index => $value)
-                                                    <option value="{{$value->id}}" {{ in_array($value->id, $subCitiesArray) ? 'selected' : '' }}>{{$value->city}}</option>
+                                            <label for="image" class="font-weight-bold">Image <span
+                                                        class="text-danger">*</span>&nbsp;&nbsp;
+                                                <a href="{{asset('public/storage/category' . '/' . $category->image)}}"
+                                                   download="{{$category->image}}">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                            </label>
+                                            <img src="" alt="" class="picture-src" id="image_preview"
+                                                 onclick="$(this).next().trigger('click')"
+                                                 style="width: 60%; display: none;">
+                                            <label class="label-style" id="image_browse">
+                                                <span class="d-flex justify-content-center align-items-center">
+                                                    <span><i class="fa fa-2x fa-camera"></i></span>
+                                                    <span>&nbsp;Browse</span>
+                                                </span>
+                                                <input type="file" class="input-style" name="image" onchange="ReadUrl(this, 'image_preview', 'image_browse');">
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <label for="parent_id" class="font-weight-bold">Parent Category</label>
+                                            <select class="form-control select2" name="parent_id" id="parent_id">
+                                                <option value="">Select</option>
+                                                @foreach($Categories as $index => $value)
+                                                    <option value="{{$value->id}}" {{ $category->parent_id == $value->id ? 'selected' : '' }}>
+                                                        {{$value->name}}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
+
                                         <div class="col-md-12 mt-4 text-right">
                                             <button type="submit" class="btn btn-primary" name="submit">
                                                 <i class="fa-solid fa-floppy-disk"></i> Submit
                                             </button>
                                             <button type="button" class="btn btn-light px-4 py-2"
-                                                    onclick="window.location.href='{{route('city')}}'">
+                                                    onclick="window.location.href='{{route('category')}}'">
                                                 Cancel
                                             </button>
                                         </div>

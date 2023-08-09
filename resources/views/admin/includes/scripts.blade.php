@@ -27,7 +27,7 @@
         setInterval(function(){ $(".alert-danger").hide(); }, 5000);
 
         // TABLES
-        MakeCityTable();
+        MakeCategoryTable();
     });
 
     function SetDatePicker(Id, Today = '', Start = '', End = '') {
@@ -60,10 +60,10 @@
         }
     }
 
-    // CITY - START
-    function MakeCityTable() {
-        if ($("#city_table").length) {
-            $("#city_table").DataTable({
+    // CATEGORY - START
+    function MakeCategoryTable() {
+        if ($("#category_table").length) {
+            $("#category_table").DataTable({
                 "processing": true,
                 "serverSide": true,
                 "paging": true,
@@ -75,40 +75,41 @@
                     ['50', '100', '200', '400']
                 ],
                 "ajax": {
-                    "url": "{{route('city.all')}}",
+                    "url": "{{route('category.all')}}",
                     "type": "POST",
                 },
                 'columns': [
                     {data: 'id'},
-                    {data: 'city'},
+                    {data: 'image', orderable: false},
+                    {data: 'name'},
                     {data: 'action', orderable: false},
                 ],
             });
         }
     }
 
-    function CheckForAdvanceDuplicateCity(id, value) {
+    function CheckForAdvanceDuplicateCategory(id, value) {
         $.ajax({
             type: "post",
-            url: "{{route('city.CheckForDuplicateCity')}}",
+            url: "{{route('category.CheckForDuplicateCategory')}}",
             data: { Id: id, Value: value},
             success: function (data) {
                 if (data === 'Failed') {
-                    $("#duplicateCityError").removeClass('d-none');
-                    $("#city").focus();
+                    $("#duplicateCategoryError").removeClass('d-none');
+                    $("#category").focus();
                     $(".submitBtn").prop('disabled', true);
                 } else {
-                    $("#duplicateCityError").addClass('d-none');
+                    $("#duplicateCategoryError").addClass('d-none');
                     $(".submitBtn").prop('disabled', false);
                 }
             }
         });
     }
 
-    function deleteCity(e){
+    function deleteCategory(e){
         let id = e.split('||')[1];
-        $("#deleteCityId").val(id);
-        $("#deleteCityModal").modal('toggle');
+        $("#deleteCategoryId").val(id);
+        $("#deleteCategoryModal").modal('toggle');
     }
     // CITY - END
 

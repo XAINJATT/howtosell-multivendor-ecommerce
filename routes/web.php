@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('category/edit/{id}', '\App\Http\Controllers\Admin\CategoryController@edit')->name('category.edit');
         Route::post('category/update', '\App\Http\Controllers\Admin\CategoryController@update')->name('category.update');
         Route::post('category/delete', '\App\Http\Controllers\Admin\CategoryController@delete')->name('category.delete');
+        Route::post('city/CheckForDuplicateCategory', '\App\Http\Controllers\Admin\CityController@CheckForDuplicateCategory')->name('category.CheckForDuplicateCategory');
 
         // Edit Profile
         Route::get('edit-profile', '\App\Http\Controllers\UserController@EditProfile');

@@ -39,15 +39,15 @@
 
             @if($page == "category")
                 <li class="nav-item active">
-                    <a href="{{url('category')}}" class="nav-link">
-                        <i class="link-icon" data-feather="map-pin"></i>
+                    <a href="{{url('admin/category')}}" class="nav-link">
+                        <i class="link-icon" data-feather="shopping-cart"></i>
                         <span class="link-title">Category</span>
                     </a>
                 </li>
             @else
                 <li class="nav-item">
-                    <a href="{{url('category')}}" class="nav-link">
-                        <i class="link-icon" data-feather="map-pin"></i>
+                    <a href="{{url('admin/category')}}" class="nav-link">
+                        <i class="link-icon" data-feather="shopping-cart"></i>
                         <span class="link-title">Category</span>
                     </a>
                 </li>

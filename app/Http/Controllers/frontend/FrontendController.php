@@ -17,6 +17,8 @@ class FrontendController extends Controller
 
     public function index()
     {
+        $categoryDetails = Category::all();
+
         $searchCategory = \request('category');
         $searchProduct = \request('search_product');
         $orderBy = null;
@@ -103,7 +105,7 @@ class FrontendController extends Controller
         }
 
 //        dd($products);
-        return view('welcome', compact('products'));
+        return view('welcome', compact('products', 'categoryDetails'));
     }
 
 
