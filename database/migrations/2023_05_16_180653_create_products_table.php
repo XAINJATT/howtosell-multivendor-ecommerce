@@ -16,17 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('name')->nullable();
             $table->double('price')->nullable();
-            $table->enum('price_type',['per_day','over_all'])->default('per_day');
             $table->double('discounted_price')->nullable();
             $table->string('product_image')->nullable();
             $table->text('short_description')->nullable();
             $table->text('long_description')->nullable();
-            $table->text('video')->nullable();
             $table->unsignedBigInteger('language_id')->nullable();
             $table->unsignedBigInteger('added_by')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
-            $table->text('state')->nullable();
-            $table->text('street_address')->nullable();
             $table->timestamps();
         });
     }

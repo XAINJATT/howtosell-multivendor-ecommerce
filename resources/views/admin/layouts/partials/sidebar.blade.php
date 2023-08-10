@@ -36,6 +36,21 @@
                     </a>
                 </li>
             @endif
+            @if($page == "product")
+                <li class="nav-item active">
+                    <a href="{{url('admin/product')}}" class="nav-link">
+                        <i class="link-icon" data-feather="shopping-cart"></i>
+                        <span class="link-title">Products</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/product')}}" class="nav-link">
+                        <i class="link-icon" data-feather="shopping-cart"></i>
+                        <span class="link-title">Product</span>
+                    </a>
+                </li>
+            @endif
             @if($page == "color")
                 <li class="nav-item active">
                     <a href="{{url('admin/color')}}" class="nav-link">

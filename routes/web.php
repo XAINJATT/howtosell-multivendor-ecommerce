@@ -65,6 +65,15 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('size/update', '\App\Http\Controllers\Admin\SizeController@update')->name('size.update');
         Route::post('size/delete', '\App\Http\Controllers\Admin\SizeController@delete')->name('size.delete');
 
+        // Product
+        Route::get('product', '\App\Http\Controllers\Admin\ProductController@index')->name('product');
+        Route::get('product/add', '\App\Http\Controllers\Admin\ProductController@add')->name('product.add');
+        Route::post('product/store', '\App\Http\Controllers\Admin\ProductController@store')->name('product.store');
+        Route::post('product/load', '\App\Http\Controllers\Admin\ProductController@load')->name('product.all');
+        Route::get('product/edit/{id}', '\App\Http\Controllers\Admin\ProductController@edit')->name('product.edit');
+        Route::post('product/update', '\App\Http\Controllers\Admin\ProductController@update')->name('product.update');
+        Route::post('product/delete', '\App\Http\Controllers\Admin\ProductController@delete')->name('product.delete');
+
         // Category
         Route::get('category', '\App\Http\Controllers\Admin\CategoryController@index')->name('category');
         Route::get('category/add', '\App\Http\Controllers\Admin\CategoryController@add')->name('category.add');
