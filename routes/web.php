@@ -47,16 +47,23 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('changePassword', 'App\Http\Controllers\Admin\DashboardController@changePassword')->name('changePassword');
         Route::post('updatePassword', 'App\Http\Controllers\Admin\DashboardController@updatePassword')->name('updatePassword');
 
-        // City
-        Route::get('city', '\App\Http\Controllers\Admin\CityController@index')->name('city');
-        Route::get('city/add', '\App\Http\Controllers\Admin\CityController@add')->name('city.add');
-        Route::post('city/store', '\App\Http\Controllers\Admin\CityController@store')->name('city.store');
-        Route::post('city/load', '\App\Http\Controllers\Admin\CityController@load')->name('city.all');
-        Route::get('city/edit/{id}', '\App\Http\Controllers\Admin\CityController@edit')->name('city.edit');
-        Route::post('city/update', '\App\Http\Controllers\Admin\CityController@update')->name('city.update');
-        Route::post('city/delete', '\App\Http\Controllers\Admin\CityController@delete')->name('city.delete');
-        Route::post('city/getDriver', '\App\Http\Controllers\Admin\CityController@getDriver')->name('city.getDriver');
-        Route::post('city/CheckForDuplicateCity', '\App\Http\Controllers\Admin\CityController@CheckForDuplicateCity')->name('city.CheckForDuplicateCity');
+        // Color
+        Route::get('color', '\App\Http\Controllers\Admin\ColorController@index')->name('color');
+        Route::get('color/add', '\App\Http\Controllers\Admin\ColorController@add')->name('color.add');
+        Route::post('color/store', '\App\Http\Controllers\Admin\ColorController@store')->name('color.store');
+        Route::post('color/load', '\App\Http\Controllers\Admin\ColorController@load')->name('color.all');
+        Route::get('color/edit/{id}', '\App\Http\Controllers\Admin\ColorController@edit')->name('color.edit');
+        Route::post('color/update', '\App\Http\Controllers\Admin\ColorController@update')->name('color.update');
+        Route::post('color/delete', '\App\Http\Controllers\Admin\ColorController@delete')->name('color.delete');
+
+        // Size
+        Route::get('size', '\App\Http\Controllers\Admin\SizeController@index')->name('size');
+        Route::get('size/add', '\App\Http\Controllers\Admin\SizeController@add')->name('size.add');
+        Route::post('size/store', '\App\Http\Controllers\Admin\SizeController@store')->name('size.store');
+        Route::post('size/load', '\App\Http\Controllers\Admin\SizeController@load')->name('size.all');
+        Route::get('size/edit/{id}', '\App\Http\Controllers\Admin\SizeController@edit')->name('size.edit');
+        Route::post('size/update', '\App\Http\Controllers\Admin\SizeController@update')->name('size.update');
+        Route::post('size/delete', '\App\Http\Controllers\Admin\SizeController@delete')->name('size.delete');
 
         // Category
         Route::get('category', '\App\Http\Controllers\Admin\CategoryController@index')->name('category');

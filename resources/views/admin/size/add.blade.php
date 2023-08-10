@@ -20,40 +20,29 @@
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                     <div>
-                                        <h5 class="mb-3 mb-md-0">Cities > <span class="text-secondary">Create City</span></h5>
+                                        <h5 class="mb-3 mb-md-0">Sizes > <span class="text-secondary">Create Size</span></h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{route('city.store')}}" method="post">
+                                <form action="{{route('size.store')}}" method="post">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12 mt-2">
-                                            <label for="city" class="font-weight-bold">City <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" onchange="CheckForAdvanceDuplicateCity('', this.value);"
-                                                   placeholder="Enter City"
-                                                   name="city" id="city" required>
-                                            <span class="error d-none duplicateCityError" id="duplicateCityError">The city has already been taken.</span>
-                                            @error('city')
+                                            <label for="name" class="font-weight-bold">Size <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control"
+                                                   placeholder="Enter Size"
+                                                   name="name" id="name" required>
+                                            @error('name')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
-
-                                        </div>
-                                        <div class="col-md-12 mt-2">
-                                            <label for="sub_cities" class="font-weight-bold">Sub Cities</label>
-                                            <select class="form-control select2" name="sub_cities[]" id="sub_cities" multiple>
-                                                <option value="" disabled="disabled">Select City</option>
-                                                @foreach($Cities as $index => $value)
-                                                    <option value="{{$value->id}}">{{$value->city}}</option>
-                                                @endforeach
-                                            </select>
                                         </div>
                                         <div class="col-md-12 mt-4 text-right">
                                             <button type="submit" class="btn btn-primary submitBtn" name="submit">
                                                 <i class="fa-solid fa-floppy-disk"></i> Submit
                                             </button>
                                             <button type="button" class="btn btn-light px-4 py-2"
-                                                    onclick="window.location.href='{{route('city')}}'">
+                                                    onclick="window.location.href='{{route('size')}}'">
                                                 Cancel
                                             </button>
                                         </div>

@@ -28,6 +28,8 @@
 
         // TABLES
         MakeCategoryTable();
+        MakeColorTable();
+        MakeSizeTable();
     });
 
     function SetDatePicker(Id, Today = '', Start = '', End = '') {
@@ -111,6 +113,74 @@
         $("#deleteCategoryId").val(id);
         $("#deleteCategoryModal").modal('toggle');
     }
-    // CITY - END
+    // CATEGORY - END
+
+    // COLOR - START
+    function MakeColorTable() {
+        if ($("#color_table").length) {
+            $("#color_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('color.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'name'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteColor(e){
+        let id = e.split('||')[1];
+        $("#deleteColorId").val(id);
+        $("#deleteColorModal").modal('toggle');
+    }
+    // COLOR - END
+
+    // SIZE - START
+    function MakeSizeTable() {
+        if ($("#size_table").length) {
+            $("#size_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('size.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'name'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteSize(e){
+        let id = e.split('||')[1];
+        $("#deleteSizeId").val(id);
+        $("#deleteSizeModal").modal('toggle');
+    }
+    // SIZE - END
 
 </script>

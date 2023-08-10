@@ -1,15 +1,15 @@
-<div class="modal fade" id="deleteCityModal" tabindex="200" role="dialog" aria-labelledby="deleteCityModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteSizeModal" tabindex="200" role="dialog" aria-labelledby="deleteSizeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="{{route('city.delete')}}" id="deleteCityForm" method="post"
+            <form action="{{route('size.delete')}}" id="deleteSizeForm" method="post"
                   enctype="multipart/form-data">
                 @csrf
                 {{--Hidden Field for Id--}}
-                <input type="hidden" name="id" id="deleteCityId"/>
+                <input type="hidden" name="id" id="deleteSizeId"/>
                 <div class="modal-body mb-0">
                     <div class="row mb-0">
                         <div class="col-12 mb-3">
-                            <h5 class="modal-title" id="deleteCityModalLabel">Delete City</h5>
+                            <h5 class="modal-title" id="deleteSizeModalLabel">Delete Size</h5>
                         </div>
                         <div class="col-12 mb-1">
                             <p class="text-left mb-3">

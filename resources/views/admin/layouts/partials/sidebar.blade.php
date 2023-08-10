@@ -21,22 +21,6 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Manage</li>
-            @if($page == "city")
-                <li class="nav-item active">
-                    <a href="{{url('city')}}" class="nav-link">
-                        <i class="link-icon" data-feather="map-pin"></i>
-                        <span class="link-title">Cities</span>
-                    </a>
-                </li>
-            @else
-                <li class="nav-item">
-                    <a href="{{url('city')}}" class="nav-link">
-                        <i class="link-icon" data-feather="map-pin"></i>
-                        <span class="link-title">City</span>
-                    </a>
-                </li>
-            @endif
-
             @if($page == "category")
                 <li class="nav-item active">
                     <a href="{{url('admin/category')}}" class="nav-link">
@@ -52,6 +36,38 @@
                     </a>
                 </li>
             @endif
+            @if($page == "color")
+                <li class="nav-item active">
+                    <a href="{{url('admin/color')}}" class="nav-link">
+                        <i class="link-icon" data-feather="droplet"></i>
+                        <span class="link-title">Colors</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/color')}}" class="nav-link">
+                        <i class="link-icon" data-feather="droplet"></i>
+                        <span class="link-title">Color</span>
+                    </a>
+                </li>
+            @endif
+
+            @if($page == "size")
+                <li class="nav-item active">
+                    <a href="{{url('admin/size')}}" class="nav-link">
+                        <i class="link-icon" data-feather="aperture"></i>
+                        <span class="link-title">Sizes</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/size')}}" class="nav-link">
+                        <i class="link-icon" data-feather="aperture"></i>
+                        <span class="link-title">Size</span>
+                    </a>
+                </li>
+            @endif
+
         </ul>
     </div>
 </nav>

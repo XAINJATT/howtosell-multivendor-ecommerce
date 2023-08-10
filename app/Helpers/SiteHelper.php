@@ -13,9 +13,9 @@ class SiteHelper
     public static function settings()
     {
         $Settings = array();
-        $Settings['PrimaryColor'] = '#B3904E'; // Blue
-        $Settings['AppName'] = 'Rental Management With Location'; // Blue
-        $Settings['Currency'] = 'USD'; // Blue
+        $Settings['PrimaryColor'] = '#B3904E';
+        $Settings['AppName'] = 'Rental Management With Location';
+        $Settings['Currency'] = 'USD';
         $Settings['Pagination'] = 15;
         return $Settings;
     }
