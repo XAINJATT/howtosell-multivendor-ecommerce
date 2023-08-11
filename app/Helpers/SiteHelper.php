@@ -13,7 +13,7 @@ class SiteHelper
     public static function settings()
     {
         $Settings = array();
-        $Settings['PrimaryColor'] = '#B3904E';
+        $Settings['PrimaryColor'] = '#ffc800';
         $Settings['AppName'] = 'Rental Management With Location';
         $Settings['Currency'] = 'USD';
         $Settings['Pagination'] = 15;

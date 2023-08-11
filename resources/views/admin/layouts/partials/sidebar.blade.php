@@ -15,12 +15,27 @@
             <li class="nav-item <?php if ($page == "dashboard") {
                 echo "active";
             } ?>">
-                <a href="{{url('dashboard')}}" class="nav-link">
+                <a href="{{url('admin/dashboard')}}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item nav-category">Manage</li>
+            @if($page == "product")
+                <li class="nav-item active">
+                    <a href="{{url('admin/product')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Products</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/product')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Product</span>
+                    </a>
+                </li>
+            @endif
             @if($page == "category")
                 <li class="nav-item active">
                     <a href="{{url('admin/category')}}" class="nav-link">
@@ -33,21 +48,6 @@
                     <a href="{{url('admin/category')}}" class="nav-link">
                         <i class="link-icon" data-feather="shopping-cart"></i>
                         <span class="link-title">Category</span>
-                    </a>
-                </li>
-            @endif
-            @if($page == "product")
-                <li class="nav-item active">
-                    <a href="{{url('admin/product')}}" class="nav-link">
-                        <i class="link-icon" data-feather="shopping-cart"></i>
-                        <span class="link-title">Products</span>
-                    </a>
-                </li>
-            @else
-                <li class="nav-item">
-                    <a href="{{url('admin/product')}}" class="nav-link">
-                        <i class="link-icon" data-feather="shopping-cart"></i>
-                        <span class="link-title">Product</span>
                     </a>
                 </li>
             @endif

@@ -42,32 +42,32 @@
         .page-item.active .page-link {
             z-index: 3;
             color: #fff;
-            background-color: #B3904E !important;
-            border-color: #B3904E !important;
+            background-color: #ffc800 !important;
+            border-color: #ffc800 !important;
         }
 
         .btn-primary.disabled, .swal2-modal .swal2-actions button.disabled.swal2-confirm, .wizard > .actions a.disabled, .btn-primary:disabled, .swal2-modal .swal2-actions button.swal2-confirm:disabled, .wizard > .actions a:disabled {
             color: #fff;
-            background-color: #B3904E;
-            border-color: #B3904E;
+            background-color: #ffc800;
+            border-color: #ffc800;
         }
 
         .btn-primary {
             color: #000000;
-            background-color: #F6EE9C;
-            border-color: #F6EE9C;
+            background-color: #ffc800;
+            border-color: #ffc800;
         }
 
         .btn-primary:hover {
             color: #000000;
-            background-color: #F6EE9C;
-            border-color: #F6EE9C;
+            background-color: #ffc800;
+            border-color: #ffc800;
         }
 
         .btn-primary:not(:disabled):not(.disabled):active {
             color: #000000;
-            background-color: #F6EE9C;
-            border-color: #F6EE9C;
+            background-color: #ffc800;
+            border-color: #ffc800;
         }
 
         .fs-4 {

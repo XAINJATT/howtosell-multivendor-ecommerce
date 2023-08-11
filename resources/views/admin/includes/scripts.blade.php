@@ -28,6 +28,7 @@
 
         // TABLES
         MakeCategoryTable();
+        MakeProductTable();
         MakeColorTable();
         MakeSizeTable();
     });
@@ -114,6 +115,42 @@
         $("#deleteCategoryModal").modal('toggle');
     }
     // CATEGORY - END
+
+    // PRODUCT - START
+    function MakeProductTable() {
+        if ($("#product_table").length) {
+            $("#product_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('product.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'image'},
+                    {data: 'name'},
+                    {data: 'price'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteProduct(e){
+        let id = e.split('||')[1];
+        $("#deleteProductId").val(id);
+        $("#deleteProductModal").modal('toggle');
+    }
+    // PRODUCT - END
 
     // COLOR - START
     function MakeColorTable() {

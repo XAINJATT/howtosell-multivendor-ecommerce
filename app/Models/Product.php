@@ -9,33 +9,34 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    protected $with=['Translate','Country'];
+    // protected $with=['Translate','Country'];
     public function Translate()
     {
         return $this->morphMany(Translate::class, 'translatable');
 
     }
-    public function Country(){
-        return $this->belongsTo(Country::class, 'country_id','id');
-    }
     public function ProductCategory(){
         return $this->belongsTo(Category::class, 'category_id','id');
     }
-    public function ProductFacilities(){
-        return $this->hasMany(ProductFacility::class,'product_id','id');
+    
+    public function ProductColors(){
+        return $this->hasMany(ProductColor::class,'product_id','id');
     }
 
-    public function ProductFeatures(){
-        return $this->hasMany(ProductFeature::class,'product_id','id');
-    }
-
-    public function ProductOffers(){
-        return $this->hasMany(ProductOffer::class,'product_id','id');
+    public function ProductSizes(){
+        return $this->hasMany(ProductSize::class,'product_id','id');
     }
 
     public function ProductImages(){
         return $this->hasMany(ProductImage::class,'product_id','id');
     }
+
+    // public function ProductOffers(){
+    //     return $this->hasMany(ProductOffer::class,'product_id','id');
+    // }
+    // public function Country(){
+    //     return $this->belongsTo(Country::class, 'country_id','id');
+    // }
 
 
 

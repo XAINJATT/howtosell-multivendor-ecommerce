@@ -31,25 +31,25 @@
         }
 
         .primaryColor{
-          color: #B3904E !important;
+          color: #ffc800 !important;
         }
 
         .btnPrimaryColor{
-          background-color: #B3904E !important;
-          border-color: #B3904E !important;
+          background-color: #ffc800 !important;
+          border-color: #ffc800 !important;
         }
 
         .oxyy-login-register .text-primary, .oxyy-login-register .btn-link {
-          color: #B3904E !important;
+          color: #ffc800 !important;
         }
 
         .oxyy-login-register .form-control:focus, .oxyy-login-register .custom-select:focus {
             -webkit-box-shadow: 0 0 5px rgb(255 255 255 / 50%);
-            border-color: #B3904E !important;
+            border-color: #ffc800 !important;
         }
 
         .oxyy-login-register .btn-link:hover {
-            color: #B3904E !important;
+            color: #ffc800 !important;
         }
     </style>
 </head>
@@ -128,7 +128,7 @@
         </div>
     </div>
     <div class="container-fluid bg-white py-2">
-        <p class="text-center text-2 text-muted mb-0">Copyright © {{date("Y")}} <a href="{{url('/')}}" style="color: black !important;">TAXI GOGO</a>
+        <p class="text-center text-2 text-muted mb-0">Copyright © {{date("Y")}} <a href="{{url('/')}}" style="color: black !important;">Rental Management System</a>
             <br>All Rights Reserved.
         </p>
     </div>

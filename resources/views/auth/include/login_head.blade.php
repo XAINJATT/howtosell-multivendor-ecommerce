@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8">
-    <title>Taxigogo</title>
+    <title>Rental Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Dynamic Empire" name="description">
     <meta content="" name="author">
