@@ -172,8 +172,6 @@
         </div>
     </main>
 
-
-
     <!-- Library Bundle Script -->
     <script src="{{ asset('assets/js/core/libs.min.js') }}"></script>
 

@@ -8,16 +8,16 @@ use App\Models\Language;
 use App\Models\Product;
 use App\Models\WebLangDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use function Ramsey\Collection\Map\put;
 
 class FrontendController extends Controller
 {
-    //
 
     public function index()
     {
-        $categoryDetails = Category::all();
+        $categoryDetails = Category::with('products')->get();
 
         $searchCategory = \request('category');
         $searchProduct = \request('search_product');
@@ -42,31 +42,27 @@ class FrontendController extends Controller
             Session::put('categories', $categories);
             if ($orderBy == 'high_to_lower') {
                 if ($searchProduct) {
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->where('category_id', $searchCategory)
-                        ->where('language_id', $lang->id)
                         ->where('name', 'like', '%' . $searchProduct . '%')
                         ->orderBy('price', 'DESC')
                         ->get();
                 } else {
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->where('category_id', $searchCategory)
-                        ->where('language_id', $lang->id)
                         ->orderBy('price', 'DESC')
                         ->get();
                 }
             } else {
                 if ($searchProduct) {
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->where('category_id', $searchCategory)
-                        ->where('language_id', $lang->id)
                         ->where('name', 'like', '%' . $searchProduct . '%')
                         ->orderBy('price', 'ASC')
                         ->get();
                 } else {
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->where('category_id', $searchCategory)
-                        ->where('language_id', $lang->id)
                         ->orderBy('price', 'ASC')
                         ->get();
                 }
@@ -77,26 +73,23 @@ class FrontendController extends Controller
             Session::put('categories', $categories);
             if ($orderBy == 'high_to_lower') {
                 if ($searchProduct) {
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->orderBy('price', 'DESC')
-                        ->where('language_id', $lang->id)
                         ->where('name', 'like', '%' . $searchProduct . '%')
                         ->get();
                 }else{
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->orderBy('price', 'DESC')
-                        ->where('language_id', $lang->id)
                         ->get();
                 }
             } else {
                 if ($searchProduct) {
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->orderBy('price', 'ASC')
-                        ->where('language_id', $lang->id)
                         ->where('name', 'like', '%' . $searchProduct . '%')
                         ->get();
                 }else{
-                    $products = Product::with(['ProductFacilities', 'ProductFeatures', 'ProductOffers', 'ProductImages'])
+                    $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])
                         ->orderBy('price', 'ASC')
                         ->where('language_id', @$lang->id)
                         ->get();
@@ -104,10 +97,13 @@ class FrontendController extends Controller
             }
         }
 
-//        dd($products);
-        return view('welcome', compact('products', 'categoryDetails'));
-    }
+        // Retrieve the product counts per category
+        $productCounts = Product::select('category_id', DB::raw('count(*) as count'))
+            ->groupBy('category_id')
+            ->pluck('count', 'category_id');
 
+        return view('welcome', compact('products', 'categoryDetails', 'productCounts'));
+    }
 
     public function changeLocale(Request $request)
     {
