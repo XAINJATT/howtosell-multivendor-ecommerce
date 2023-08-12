@@ -7,15 +7,18 @@
     "require": {
         "php": "^8.0",
         "ext-gd": "*",
+        "bacon/bacon-qr-code": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
         "google/cloud-firestore": "^1.27",
         "grpc/grpc": "^v1.1.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
+        "kreait/laravel-firebase": "^4.2",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-json-api-paginate": "^1.12",
         "stripe/stripe-php": "7.125"
     },
