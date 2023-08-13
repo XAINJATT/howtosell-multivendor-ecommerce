@@ -84,6 +84,20 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('category/delete', '\App\Http\Controllers\Admin\CategoryController@delete')->name('category.delete');
         Route::post('city/CheckForDuplicateCategory', '\App\Http\Controllers\Admin\CityController@CheckForDuplicateCategory')->name('category.CheckForDuplicateCategory');
 
+        // Coupon
+        Route::get('coupon', '\App\Http\Controllers\Admin\CouponController@index')->name('coupon');
+        Route::get('coupon/add', '\App\Http\Controllers\Admin\CouponController@add')->name('coupon.add');
+        Route::post('coupon/store', '\App\Http\Controllers\Admin\CouponController@store')->name('coupon.store');
+        Route::post('coupon/load', '\App\Http\Controllers\Admin\CouponController@load')->name('coupon.all');
+        Route::get('coupon/edit/{id}', '\App\Http\Controllers\Admin\CouponController@edit')->name('coupon.edit');
+        Route::post('coupon/update', '\App\Http\Controllers\Admin\CouponController@update')->name('coupon.update');
+        Route::post('coupon/delete', '\App\Http\Controllers\Admin\CouponController@delete')->name('coupon.delete');
+
+        // Stock
+        Route::get('stock', '\App\Http\Controllers\Admin\StockController@index')->name('stock');
+        Route::post('stock/store', '\App\Http\Controllers\Admin\StockController@store')->name('stock.store');
+        Route::post('stock/load', '\App\Http\Controllers\Admin\StockController@load')->name('stock.all');
+
         // Edit Profile
         Route::get('edit-profile', '\App\Http\Controllers\UserController@EditProfile');
         Route::post('update-personal-details', '\App\Http\Controllers\UserController@UpdatePersonalDetails');

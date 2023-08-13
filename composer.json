@@ -20,7 +20,12 @@
         "laravel/ui": "^3.4",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-json-api-paginate": "^1.12",
+        "spatie/laravel-permission": "^5.10",
         "stripe/stripe-php": "7.125"
+    },
+    "provide": { 
+        "ext-grpc": "*", 
+        "ext-sodium": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
