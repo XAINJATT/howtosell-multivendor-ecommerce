@@ -14,6 +14,7 @@ use App\Models\Size;
 use Illuminate\Support\Str;
 use App\Helpers\SiteHelper;
 use App\Models\Color;
+use App\Models\Stock;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -128,9 +129,16 @@ class ProductController extends Controller
             'discounted_price' => $request['discounted_price'],
             'short_description' => $request['short_description'],
             'long_description' => $request['long_description'],
+            'soh' => $request['soh'],
             'product_image' => $FileImage,
             'created_at' => Carbon::now()
         ]);
+
+        $stock = new Stock();
+        $stock->product_id = $Affected->id;
+        $stock->qty = $Affected->soh;
+        $stock->type = 0;
+        $stock->save();
 
         foreach ($request->other_images as $image) {
             $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
@@ -199,6 +207,7 @@ class ProductController extends Controller
             'discounted_price' => $request['discounted_price'],
             'short_description' => $request['short_description'],
             'long_description' => $request['long_description'],
+            'soh' => $request['soh'],
             'product_image' => $FileImage ?: $product->product_image,
         ]);
 

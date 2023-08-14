@@ -29,6 +29,11 @@
         // TABLES
         MakeCategoryTable();
         MakeProductTable();
+        MakeStockTable();
+        MakeCouponTable();
+        MakeRoleTable();
+        MakePermissionTable();
+        MakeOrderTable();
         MakeColorTable();
         MakeSizeTable();
     });
@@ -151,6 +156,178 @@
         $("#deleteProductModal").modal('toggle');
     }
     // PRODUCT - END
+
+    // STOCK - START
+    function MakeStockTable() {
+        if ($("#stock_table").length) {
+            $("#stock_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('stock.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'image', orderable: false },
+                    {data: 'name'},
+                    {data: 'price'},
+                    {data: 'discounted_price'},
+                    {data: 'short_description'},
+                    {data: 'soh'},
+                    { data: 'input', orderable: false },
+                ],
+            });
+        }
+    }
+    // STOCK - END
+
+    // ORDER - START
+    function MakeOrderTable() {
+        if ($("#order_table").length) {
+            $("#order_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('order.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'image', orderable: false },
+                    {data: 'name'},
+                    {data: 'price'},
+                    {data: 'discounted_price'},
+                    {data: 'short_description'},
+                    {data: 'soh'},
+                    { data: 'input', orderable: false },
+                ],
+            });
+        }
+    }
+    // ORDER - END
+
+    // Permission - START
+    function MakePermissionTable() {
+        if ($("#permission_table").length) {
+            $("#permission_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('permission.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'name'},
+                    {data: 'guard_name'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deletePermission(e){
+        let id = e.split('||')[1];
+        $("#deletePermissionId").val(id);
+        $("#deletePermissionModal").modal('toggle');
+    }
+    // Permission - END
+
+    // ROLE - START
+    function MakeRoleTable() {
+        if ($("#role_table").length) {
+            $("#role_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('role.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'name'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteRole(e){
+        let id = e.split('||')[1];
+        $("#deleteRoleId").val(id);
+        $("#deleteRoleModal").modal('toggle');
+    }
+    // ROLE - END
+
+    // COUPON - START
+    function MakeCouponTable() {
+        if ($("#coupon_table").length) {
+            $("#coupon_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('coupon.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'coupon_code'},
+                    {data: 'discount_amount'},
+                    {data: 'start_date'},
+                    {data: 'end_date'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteCoupon(e){
+        let id = e.split('||')[1];
+        $("#deleteCouponId").val(id);
+        $("#deleteCouponModal").modal('toggle');
+    }
+    // COUPON - END
 
     // COLOR - START
     function MakeColorTable() {

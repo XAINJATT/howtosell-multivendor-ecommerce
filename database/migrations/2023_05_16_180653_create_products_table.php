@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('product_image')->nullable();
             $table->text('short_description')->nullable();
             $table->text('long_description')->nullable();
+            $table->integer('soh')->nullable();
             $table->unsignedBigInteger('language_id')->nullable();
             $table->unsignedBigInteger('added_by')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();

@@ -51,6 +51,81 @@
                     </a>
                 </li>
             @endif
+            @if($page == "coupon")
+                <li class="nav-item active">
+                    <a href="{{url('admin/coupon')}}" class="nav-link">
+                        <i class="link-icon" data-feather="percent"></i>
+                        <span class="link-title">Coupon</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/coupon')}}" class="nav-link">
+                        <i class="link-icon" data-feather="percent"></i>
+                        <span class="link-title">Coupons</span>
+                    </a>
+                </li>
+            @endif
+            @if($page == "role")
+                <li class="nav-item active">
+                    <a href="{{url('admin/role')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Roles</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/role')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Role</span>
+                    </a>
+                </li>
+            @endif
+            @if($page == "order")
+                <li class="nav-item active">
+                    <a href="{{url('admin/order')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Orders</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/order')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Order</span>
+                    </a>
+                </li>
+            @endif
+            @if($page == "permission")
+                <li class="nav-item active">
+                    <a href="{{url('admin/permission')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Permissions</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/permission')}}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Permission</span>
+                    </a>
+                </li>
+            @endif
+            @if($page == "stock")
+                <li class="nav-item active">
+                    <a href="{{url('admin/stock')}}" class="nav-link">
+                        <i class="link-icon" data-feather="database"></i>
+                        <span class="link-title">Stock</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{url('admin/stock')}}" class="nav-link">
+                        <i class="link-icon" data-feather="database"></i>
+                        <span class="link-title">Stocks</span>
+                    </a>
+                </li>
+            @endif
             @if($page == "color")
                 <li class="nav-item active">
                     <a href="{{url('admin/color')}}" class="nav-link">

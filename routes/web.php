@@ -47,6 +47,24 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('changePassword', 'App\Http\Controllers\Admin\DashboardController@changePassword')->name('changePassword');
         Route::post('updatePassword', 'App\Http\Controllers\Admin\DashboardController@updatePassword')->name('updatePassword');
 
+        // Role
+        Route::get('role', '\App\Http\Controllers\Admin\RoleController@index')->name('role');
+        Route::get('role/add', '\App\Http\Controllers\Admin\RoleController@add')->name('role.add');
+        Route::post('role/store', '\App\Http\Controllers\Admin\RoleController@store')->name('role.store');
+        Route::post('role/load', '\App\Http\Controllers\Admin\RoleController@load')->name('role.all');
+        Route::get('role/edit/{id}', '\App\Http\Controllers\Admin\RoleController@edit')->name('role.edit');
+        Route::post('role/update', '\App\Http\Controllers\Admin\RoleController@update')->name('role.update');
+        Route::post('role/delete', '\App\Http\Controllers\Admin\RoleController@delete')->name('role.delete');
+
+        // Permission
+        Route::get('permission', '\App\Http\Controllers\Admin\PermissionController@index')->name('permission');
+        Route::get('permission/add', '\App\Http\Controllers\Admin\PermissionController@add')->name('permission.add');
+        Route::post('permission/store', '\App\Http\Controllers\Admin\PermissionController@store')->name('permission.store');
+        Route::post('permission/load', '\App\Http\Controllers\Admin\PermissionController@load')->name('permission.all');
+        Route::get('permission/edit/{id}', '\App\Http\Controllers\Admin\PermissionController@edit')->name('permission.edit');
+        Route::post('permission/update', '\App\Http\Controllers\Admin\PermissionController@update')->name('permission.update');
+        Route::post('permission/delete', '\App\Http\Controllers\Admin\PermissionController@delete')->name('permission.delete');
+
         // Color
         Route::get('color', '\App\Http\Controllers\Admin\ColorController@index')->name('color');
         Route::get('color/add', '\App\Http\Controllers\Admin\ColorController@add')->name('color.add');
@@ -83,6 +101,25 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('category/update', '\App\Http\Controllers\Admin\CategoryController@update')->name('category.update');
         Route::post('category/delete', '\App\Http\Controllers\Admin\CategoryController@delete')->name('category.delete');
         Route::post('city/CheckForDuplicateCategory', '\App\Http\Controllers\Admin\CityController@CheckForDuplicateCategory')->name('category.CheckForDuplicateCategory');
+
+        // Coupon
+        Route::get('coupon', '\App\Http\Controllers\Admin\CouponController@index')->name('coupon');
+        Route::get('coupon/add', '\App\Http\Controllers\Admin\CouponController@add')->name('coupon.add');
+        Route::post('coupon/store', '\App\Http\Controllers\Admin\CouponController@store')->name('coupon.store');
+        Route::post('coupon/load', '\App\Http\Controllers\Admin\CouponController@load')->name('coupon.all');
+        Route::get('coupon/edit/{id}', '\App\Http\Controllers\Admin\CouponController@edit')->name('coupon.edit');
+        Route::post('coupon/update', '\App\Http\Controllers\Admin\CouponController@update')->name('coupon.update');
+        Route::post('coupon/delete', '\App\Http\Controllers\Admin\CouponController@delete')->name('coupon.delete');
+
+        // Stock
+        Route::get('stock', '\App\Http\Controllers\Admin\StockController@index')->name('stock');
+        Route::post('stock/store', '\App\Http\Controllers\Admin\StockController@store')->name('stock.store');
+        Route::post('stock/load', '\App\Http\Controllers\Admin\StockController@load')->name('stock.all');
+
+        // Order
+        Route::get('order', '\App\Http\Controllers\Admin\OrderController@index')->name('order');
+        Route::post('order/store', '\App\Http\Controllers\Admin\OrderController@store')->name('order.store');
+        Route::post('order/load', '\App\Http\Controllers\Admin\OrderController@load')->name('order.all');
 
         // Edit Profile
         Route::get('edit-profile', '\App\Http\Controllers\UserController@EditProfile');

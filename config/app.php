@@ -162,7 +162,7 @@ return [
          Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Package Service Providers...
          */

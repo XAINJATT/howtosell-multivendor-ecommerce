@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\SiteHelper;
-use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Color;

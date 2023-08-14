@@ -114,6 +114,10 @@
                                                         class="text-danger">*</span></label>
                                             <input type="file" class="form-control" name="other_images[]" id="other_images-" multiple/>
                                         </div>
+                                        <div class="col-md-6 mt-2">
+                                            <label for="soh" class="font-weight-bold">Starting Quantity <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" placeholder="Enter Name" name="soh" id="soh" required>
+                                        </div>
                                         <div class="col-md-12 mt-4 text-right">
                                             <button type="submit" class="btn btn-primary submitBtn" name="submit">
                                                 <i class="fa-solid fa-floppy-disk"></i> Submit
