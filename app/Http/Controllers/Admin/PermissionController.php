@@ -87,4 +87,72 @@ class PermissionController extends Controller
 
         echo json_encode($json_data);
     }
+
+    public function add()
+    {
+        $page = "add";
+        $Permissions = Permission::all();
+        return view('admin.Permission.add', compact('page', 'Permissions'));
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:Permissions,name,' . $request['name'] . ',id',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        } else {
+            $Affected = Permission::create([
+                'name' => $request['name'],
+                'guard_name' => $request['guard_name'],
+                'created_at' => Carbon::now()
+            ]);
+            if ($Affected) {
+                return redirect()->route('permission')->with('success-message', 'Permission added successfully');
+            } else {
+                return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+            }
+        }
+    }
+
+    public function edit($id)
+    {
+        $page = 'edit';
+        $permission = Permission::where('id', $id)->First();
+        $Permissions = Permission::all();
+        return view('admin.Permission.edit', compact('page', 'permission', 'Permissions'));
+    }
+
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:Permissions,name,' . $request['id'] . ',id',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        } else {
+            $Affected = Permission::where('id', $request['id'])
+                ->update([
+                    'name' => $request['name'],
+                    'guard_name' => $request['guard_name'],
+                    'updated_at' => Carbon::now()
+                ]);
+            if ($Affected) {
+                return redirect()->route('permission')->with('success-message', 'Permission updated successfully');
+            } else {
+                return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+            }
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        $Affected = Permission::where('id', $request['id'])->delete();
+        if ($Affected) {
+            return redirect()->route('permission')->with('success-message', 'Permission deleted successfully');
+        } else {
+            return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+        }
+    }
 }

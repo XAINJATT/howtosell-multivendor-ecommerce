@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\SiteHelper;
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
+use App\Models\RoleHasPermission;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,7 +74,6 @@ class RoleController extends Controller
             $sub_array = array();
             $sub_array['id'] = $SrNo;
             $sub_array['name'] = $item->name;
-            $sub_array['guard_name'] = $item->guard_name;
             $sub_array['action'] = '<a href="' . $Edit . '" class="text-primary fs-5"><i class="fas fa-edit"></i></a><span><i id="delete||' . $item->id . '" onclick="deleteRole(this.id);" class="fas fa-trash-alt fs-5 ml-2 text-danger cursor-pointer"></i></span>';
             $SrNo++;
             $data[] = $sub_array;
@@ -86,5 +87,55 @@ class RoleController extends Controller
         );
 
         echo json_encode($json_data);
+    }
+
+    public function add()
+    {
+        $page = "add";
+        $Roles = Role::all();
+        $Permissions = Permission::all();
+        return view('admin.role.add', compact('page', 'Roles', 'Permissions'));
+    }
+
+    public function store(Request $request)
+    {
+        $role = Role::create(['name' => $request['name']]);
+        $permissions = $request['permission'];
+        $role->syncPermissions($permissions);
+
+        if ($role) {
+            return redirect()->route('role')->with('success-message', 'Role added successfully');
+        } else {
+            return redirect()->route('role')->with('error-message', 'An unhandled error occurred');
+        }
+    }
+
+    public function edit($id)
+    {
+        $page = 'edit';
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+        
+        return view('admin.role.edit', compact('page', 'role', 'permissions'));
+    }
+
+    public function update(Request $request)
+    {
+        $role = Role::findOrFail($request['id']);
+        $role->update(['name' => $request['name']]);
+        $permissions = $request['permission'];
+        $role->syncPermissions($permissions);
+
+        return redirect()->route('role')->with('success-message', 'Role updated successfully');
+    }
+
+    public function delete(Request $request)
+    {
+        $Affected = Role::where('id', $request['id'])->delete();
+        if ($Affected) {
+            return redirect()->route('role')->with('success-message', 'Role deleted successfully');
+        } else {
+            return redirect()->route('role')->with('error-message', 'An unhandled error occurred');
+        }
     }
 }

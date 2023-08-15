@@ -53,7 +53,7 @@
                                             <label class="font-weight-bold text-black" for="category">Category <span
                                                         class="text-danger">*</span></label>
                                             <select class="form-control select2" name="category" id="category" required>
-                                                <option value="">Select Category</option>
+                                                <option value="" disabled>Select Category</option>
                                                 @foreach($categories as $index => $value)
                                                     <option value="{{$value->id}}">{{$value->name}}</option>
                                                 @endforeach
@@ -79,7 +79,7 @@
                                             <label class="font-weight-bold text-black" for="Colors">Colors <span
                                                         class="text-danger">*</span></label>
                                             <select class="form-control select2" name="Colors[]" id="Colors" multiple required>
-                                                <option value="">Select Colors</option>
+                                                <option value="" disabled>Select Colors</option>
                                                 @foreach($Colors as $index => $value)
                                                     <option value="{{$value->id}}">{{$value->name}}</option>
                                                 @endforeach
@@ -89,7 +89,7 @@
                                             <label class="font-weight-bold text-black" for="Sizes">Sizes <span
                                                         class="text-danger">*</span></label>
                                             <select class="form-control select2" name="Sizes[]" id="Sizes" multiple required>
-                                                <option value="">Select Sizes</option>
+                                                <option value="" disabled>Select Sizes</option>
                                                 @foreach($Sizes as $index => $value)
                                                     <option value="{{$value->id}}">{{$value->name}}</option>
                                                 @endforeach

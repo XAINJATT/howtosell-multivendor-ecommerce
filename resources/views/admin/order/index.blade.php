@@ -28,13 +28,13 @@
                             <thead>
                                 <tr>
                                     <th style="width:5%;">#</th>
-                                    <th style="width:10%;">Image</th>
-                                    <th style="width:10%;">Name</th>
-                                    <th style="width:10%;">Price</th>
-                                    <th style="width:10%;">Discounted Price</th>
-                                    <th style="width:20%;">Short Description</th>
-                                    <th style="width:10%;">Starting Quantity</th>
-                                    <th style="width:25%;">Stock</th>
+                                    <th style="width:12%;">Order Status</th>
+                                    <th style="width:12%;">Sub Total</th>
+                                    <th style="width:12%;">Shipping Amount</th>
+                                    <th style="width:10%;">Total</th>
+                                    <th style="width:14%;">Order Description</th>
+                                    <th style="width:12%;">Payment Status</th>
+                                    <th style="width:12%;">Delivery Note</th>
                                 </tr>
                             </thead>
                             <tbody>

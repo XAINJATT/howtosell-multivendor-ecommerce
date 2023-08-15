@@ -35,8 +35,7 @@
                                 <thead>
                                 <tr>
                                     <th style="width:10%;">#</th>
-                                    <th style="width:25%;">Name</th>
-                                    <th style="width:45%;">Guard Name</th>
+                                    <th style="width:70%;">Name</th>
                                     <th style="width:20%;">Action</th>
                                 </tr>
                                 </thead>

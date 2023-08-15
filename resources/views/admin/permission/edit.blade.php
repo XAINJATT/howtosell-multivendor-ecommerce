@@ -20,30 +20,36 @@
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                     <div>
-                                        <h5 class="mb-3 mb-md-0">Colors > <span class="text-secondary">Edit Color</span></h5>
+                                        <h5 class="mb-3 mb-md-0">Permissions > <span class="text-secondary">Edit Permission</span></h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{route('color.update')}}" method="post">
+                                <form action="{{route('permission.update')}}" method="post">
                                     @csrf
-                                    <input type="hidden" name="id" value="{{$color->id}}">
+                                    <input type="hidden" name="id" value="{{$permission->id}}">
                                     <div class="row">
                                         <div class="col-md-12 mt-2">
-                                            <label for="name" class="font-weight-bold">Color Name <span class="text-danger">*</span></label>
+                                            <label for="name" class="font-weight-bold">Name <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control"
-                                                   placeholder="Enter Color Name"
-                                                   name="name" value="{{$color->name}}" id="name" required>
-                                            @error('color')
+                                                   placeholder="Enter Name"
+                                                   name="name" value="{{$permission->name}}" id="name" required>
+                                            @error('name')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <label for="guard_name" class="font-weight-bold">Guard Name <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control"
+                                                   placeholder="Enter Permission Name"
+                                                   name="guard_name" value="{{$permission->guard_name}}" id="guard_name" required>
                                         </div>
                                         <div class="col-md-12 mt-4 text-right">
                                             <button type="submit" class="btn btn-primary" name="submit">
                                                 <i class="fa-solid fa-floppy-disk"></i> Submit
                                             </button>
                                             <button type="button" class="btn btn-light px-4 py-2"
-                                                    onclick="window.location.href='{{route('color')}}'">
+                                                    onclick="window.location.href='{{route('permission')}}'">
                                                 Cancel
                                             </button>
                                         </div>

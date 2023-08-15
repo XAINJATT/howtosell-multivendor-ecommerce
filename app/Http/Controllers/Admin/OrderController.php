@@ -71,8 +71,13 @@ class OrderController extends Controller
             $Edit = route('order.edit', array($item->id));
             $sub_array = array();
             $sub_array['id'] = $SrNo;
-            $sub_array['name'] = $item->name;
-            $sub_array['guard_name'] = $item->guard_name;
+            $sub_array['order_status'] = $item->order_status;
+            $sub_array['subtotal'] = $item->subtotal;
+            $sub_array['shipping_amount'] = $item->shipping_amount;
+            $sub_array['total'] = $item->total;
+            $sub_array['order_description'] = $item->order_description;
+            $sub_array['payment_status'] = $item->payment_status;
+            $sub_array['delivery_note'] = $item->delivery_note;
             $sub_array['action'] = '<a href="' . $Edit . '" class="text-primary fs-5"><i class="fas fa-edit"></i></a><span><i id="delete||' . $item->id . '" onclick="deleteOrder(this.id);" class="fas fa-trash-alt fs-5 ml-2 text-danger cursor-pointer"></i></span>';
             $SrNo++;
             $data[] = $sub_array;
