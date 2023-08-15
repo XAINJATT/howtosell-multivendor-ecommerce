@@ -9,10 +9,8 @@ class ProductSize extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    protected $with=['Translate'];
-    public function Translate()
-    {
-        return $this->morphMany(Translate::class, 'translatable');
 
+    public function Size(){
+        return $this->belongsTo(Size::class, 'size_id','id');
     }
 }

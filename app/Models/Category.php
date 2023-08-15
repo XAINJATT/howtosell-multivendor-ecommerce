@@ -10,12 +10,6 @@ class Category extends Model
 {
     use HasFactory , SoftDeletes;
     protected $guarded=[];
-    protected $with=['Translate'];
-    public function Translate()
-    {
-        return $this->morphMany(Translate::class, 'translatable');
-
-    }
 
     public function Parent(){
        return $this->belongsTo(Category::class, 'parent_id','id');

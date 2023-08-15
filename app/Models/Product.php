@@ -9,16 +9,10 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    // protected $with=['Translate','Country'];
-    public function Translate()
-    {
-        return $this->morphMany(Translate::class, 'translatable');
-
-    }
     public function ProductCategory(){
         return $this->belongsTo(Category::class, 'category_id','id');
     }
-    
+
     public function ProductColors(){
         return $this->hasMany(ProductColor::class,'product_id','id');
     }

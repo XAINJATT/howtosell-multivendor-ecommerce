@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\frontend\ProductController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,7 @@ Route::get('/register', function () {
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(['prefix' => 'admin'], function(){
-        
+
     Route::middleware(['auth'])->group(function () {
         /* Admin Routes */
         Route::group(['middleware' => 'admin.guest'],function(){
@@ -127,3 +128,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('update-account-security', '\App\Http\Controllers\UserController@UpdateAccountSecurity');
     });
 });
+
+Route::get('product-detail/{id}', [ProductController::class,'productDetail']);
+Route::get('products', [ProductController::class,'allProducts']);
+

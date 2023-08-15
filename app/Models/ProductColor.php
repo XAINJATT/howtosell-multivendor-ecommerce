@@ -9,10 +9,8 @@ class ProductColor extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    protected $with=['Translate'];
-    public function Translate()
-    {
-        return $this->morphMany(Translate::class, 'translatable');
 
+    public function Color(){
+        return $this->belongsTo(Color::class, 'color_id','id');
     }
 }

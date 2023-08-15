@@ -9,10 +9,4 @@ class ProductImage extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    protected $with=['Translate'];
-    public function Translate()
-    {
-        return $this->morphMany(Translate::class, 'translatable');
-
-    }
 }
