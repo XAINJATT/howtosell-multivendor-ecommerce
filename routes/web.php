@@ -136,6 +136,7 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::get('product-detail/{id}', [ProductController::class,'productDetail']);
 Route::get('products', [ProductController::class,'allProducts']);
+Route::get('filter-products', [ProductController::class, 'filterProducts'])->name('frontend.filter-products');
 Route::get('cart', [AddToCartController::class,'index']);
 Route::post('add-to-cart', [AddToCartController::class,'AddToCart']);
 
