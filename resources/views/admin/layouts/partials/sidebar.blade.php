@@ -69,14 +69,14 @@
             @if($page == "role")
                 <li class="nav-item active">
                     <a href="{{url('admin/role')}}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
+                        <i class="link-icon" data-feather="key"></i>
                         <span class="link-title">Roles</span>
                     </a>
                 </li>
             @else
                 <li class="nav-item">
                     <a href="{{url('admin/role')}}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
+                        <i class="link-icon" data-feather="key"></i>
                         <span class="link-title">Role</span>
                     </a>
                 </li>
@@ -84,14 +84,14 @@
             @if($page == "order")
                 <li class="nav-item active">
                     <a href="{{url('admin/order')}}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
+                        <i class="link-icon" data-feather="briefcase"></i>
                         <span class="link-title">Orders</span>
                     </a>
                 </li>
             @else
                 <li class="nav-item">
                     <a href="{{url('admin/order')}}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
+                        <i class="link-icon" data-feather="briefcase"></i>
                         <span class="link-title">Order</span>
                     </a>
                 </li>
@@ -99,14 +99,14 @@
             @if($page == "permission")
                 <li class="nav-item active">
                     <a href="{{url('admin/permission')}}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
+                        <i class="link-icon" data-feather="lock"></i>
                         <span class="link-title">Permissions</span>
                     </a>
                 </li>
             @else
                 <li class="nav-item">
                     <a href="{{url('admin/permission')}}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
+                        <i class="link-icon" data-feather="lock"></i>
                         <span class="link-title">Permission</span>
                     </a>
                 </li>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController; // Adjust the namespace for FrontendController
+use App\Http\Controllers\Auth\RegisterController;
 
 //Command Routes
 Route::get('clear-cache', function () {
@@ -28,10 +29,13 @@ Route::post('change-locale', [FrontendController::class,'changeLocale'])->name('
 // Use named routes for clarity
 Route::get('/admin/login', '\App\Http\Controllers\Auth\LoginController@showLoginForm')->name('admin.login');
 
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
 // Authentication
-Route::get('/register', function () {
-    return redirect(url('/login'));
-});
+// Route::get('/register', function () {
+//     return redirect(url('/login'));
+// });
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(['prefix' => 'admin'], function(){

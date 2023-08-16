@@ -1,15 +1,15 @@
-<div class="modal fade" id="deleteColorModal" tabindex="200" role="dialog" aria-labelledby="deleteColorModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteRoleModal" tabindex="200" role="dialog" aria-labelledby="deleteRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="{{route('color.delete')}}" id="deleteColorForm" method="post"
+            <form action="{{route('role.delete')}}" id="deleteRoleForm" method="post"
                   enctype="multipart/form-data">
                 @csrf
                 {{--Hidden Field for Id--}}
-                <input type="hidden" name="id" id="deleteColorId"/>
+                <input type="hidden" name="id" id="deleteRoleId"/>
                 <div class="modal-body mb-0">
                     <div class="row mb-0">
                         <div class="col-12 mb-3">
-                            <h5 class="modal-title" id="deleteColorModalLabel">Delete Color</h5>
+                            <h5 class="modal-title" id="deleteRoleModalLabel">Delete Role</h5>
                         </div>
                         <div class="col-12 mb-1">
                             <p class="text-left mb-3">

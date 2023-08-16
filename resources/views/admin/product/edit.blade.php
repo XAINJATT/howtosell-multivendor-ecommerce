@@ -57,7 +57,7 @@
                                             <select class="form-control select2" name="category" id="category" required>
                                                 <option value="">Select Category</option>
                                                 @foreach($categories as $index => $value)
-                                                    <option value="">Select Category</option>
+                                                    <option value="" disabled>Select Category</option>
                                                     @if($product->category_id)
                                                         <option value="{{$value->id}}" {{$product->category_id == $value->id ? 'selected' : ''}}>{{$value->name}}</option>
                                                     @else
@@ -85,7 +85,7 @@
                                         <div class="col-md-6 mt-2">
                                             <label class="font-weight-bold text-black" for="Colors">Colors <span class="text-danger">*</span></label>
                                             <select class="form-control select2" name="Colors[]" id="Colors" multiple required>
-                                                <option value="">Select Colors</option>
+                                                <option value="" disabled>Select Colors</option>
                                                 @foreach($Colors as $color)
                                                     <option value="{{$color->id}}"
                                                         {{ $product->ProductColors->contains('color_id', $color->id) ? 'selected' : '' }}>
@@ -98,7 +98,7 @@
                                         <div class="col-md-6 mt-2">
                                             <label class="font-weight-bold text-black" for="Sizes">Sizes <span class="text-danger">*</span></label>
                                             <select class="form-control select2" name="Sizes[]" id="Sizes" multiple required>
-                                                <option value="">Select Sizes</option>
+                                                <option value="" disabled>Select Sizes</option>
                                                 @foreach($Sizes as $size)
                                                     <option value="{{$size->id}}"
                                                         {{ $product->ProductSizes->contains('size_id', $size->id) ? 'selected' : '' }}>

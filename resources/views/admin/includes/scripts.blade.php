@@ -210,13 +210,13 @@
                 },
                 'columns': [
                     {data: 'id'},
-                    {data: 'image', orderable: false },
-                    {data: 'name'},
-                    {data: 'price'},
-                    {data: 'discounted_price'},
-                    {data: 'short_description'},
-                    {data: 'soh'},
-                    { data: 'input', orderable: false },
+                    {data: 'order_status' },
+                    {data: 'subtotal'},
+                    {data: 'shipping_amount'},
+                    {data: 'total'},
+                    {data: 'order_description'},
+                    {data: 'payment_status'},
+                    { data: 'delivery_note' },
                 ],
             });
         }
