@@ -1,49 +1,3 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extrorent</title>
-    <!-- Faviicon -->
-    <link rel="shortcut icon" href="{{ asset('public/frontend/asset/logo/faviicon.svg') }}" type="image/x-icon">
-    <!-- Fontosome Style Sheet -->
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/css/all.min.css') }}">
-    <!-- Bootstarp 5 Style Sheet -->
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/css/bootstrap.min.css') }}">
-    <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/css/index.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/css/form.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/css/swiper-bundle.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/frontend/asset/icons/fontawesome6/css/all.min.css') }}">
-
-    <style>
-        .vendor-carousel img {
-          animation: pulse 2s infinite;
-          transform: scale(1);
-        }
-        @keyframes pulse {
-          0% {
-            transform: scale(0.85);
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-          }
-  
-          70% {
-            transform: scale(1);
-            box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-          }
-  
-          100% {
-            transform: scale(0.85);
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-          }
-        }
-      </style>
-</head> --}}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,31 +10,30 @@
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon" />
     <link href="{{asset('favicon.ico')}}" rel="icon" />
-    
+
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
     <!-- Font Awesome -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
 
-    <!-- Libraries Stylesheet -->
-    {{-- <link href="lib/animate/animate.min.css" rel="stylesheet" /> --}}
-    <!-- <link href="{{asset('public/frontend/asset/lib/animate/animate.min.css')}}" rel="stylesheet" /> -->
-    {{-- <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" /> --}}
     <link href="{{asset('public/frontend/asset/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-   
     <link href="{{asset('public/frontend/asset/css/style.css')}}" rel="stylesheet" />
-  
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+          const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 5000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                  toast.addEventListener("mouseenter", Swal.stopTimer);
+                  toast.addEventListener("mouseleave", Swal.resumeTimer);
+              },
+          });
+      </script>
   </head>
 <body>
 
@@ -120,8 +73,27 @@
 <script src="{{asset('public/frontend/asset/js/main.js')}}"></script>
 
     @stack('front_js')
-    @include('frontend.includes.flash_messages')
 
+    <script>
+        function AddToCart(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ url('add-to-cart') }}",
+                data: {
+                    '_token': "{{csrf_token()}}",
+                    'id': id,
+                },
+                dataType: "json",
+                success: function (response) {
+                    Toast.fire('success',response.msg,'success');
+                    location.reload();
+                }
+            });
+        }
+    </script>
+
+
+    @include('frontend.includes.flash_messages')
 </body>
 
 </html>

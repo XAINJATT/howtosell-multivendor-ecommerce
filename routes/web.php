@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\frontend\ProductController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -131,4 +132,7 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::get('product-detail/{id}', [ProductController::class,'productDetail']);
 Route::get('products', [ProductController::class,'allProducts']);
+Route::get('cart', [AddToCartController::class,'index']);
+Route::post('add-to-cart', [AddToCartController::class,'AddToCart']);
+
 

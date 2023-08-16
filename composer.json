@@ -8,6 +8,7 @@
         "php": "^8.0",
         "ext-gd": "*",
         "bacon/bacon-qr-code": "^2.0",
+        "bumbummen99/shoppingcart": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "google/cloud-firestore": "^1.27",
         "grpc/grpc": "^v1.1.0",
@@ -23,8 +24,8 @@
         "spatie/laravel-permission": "^5.10",
         "stripe/stripe-php": "7.125"
     },
-    "provide": { 
-        "ext-grpc": "*", 
+    "provide": {
+        "ext-grpc": "*",
         "ext-sodium": "*"
     },
     "require-dev": {
@@ -40,7 +41,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/SiteHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
