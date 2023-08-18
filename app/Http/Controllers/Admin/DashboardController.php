@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,7 +25,10 @@ class DashboardController extends Controller
     {
         $page = "dashboard";
         $Role = Session::get('user_role');
-        return view('admin.index', compact('page', 'Role'));
+        $totalProducts = Product::count();
+        $totalOrders = Order::count();
+        $totalCategories = Category::where('deleted_at', null)->count();
+        return view('admin.index', compact('page', 'Role', 'totalProducts', 'totalCategories', 'totalOrders'));
     }
 
     public function changePassword(){

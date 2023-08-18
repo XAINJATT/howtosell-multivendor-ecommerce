@@ -14,15 +14,17 @@ class ProductController extends Controller
         $product = Product::with(['ProductColors.Color', 'ProductSizes.Size', 'ProductImages'])->where('id', $id)->first();
         return view('frontend.product_detail',compact('product'));
     }
-    public function allProducts(){
+
+    public function allProducts(Request $request){
+        $query = $request->input('q');
         $colors = Color::all();
         $sizes = Size::all();
         $category = \request('category_id');
         if ($category) {
             $products = Product::with(['ProductColors.Color', 'ProductSizes.Size', 'ProductImages'])
-                ->where('category_id', $category)->get();
+            ->orWhere('name', 'like', "%$query%")->where('category_id', $category)->get();
         }else{
-            $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])->get();
+            $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])->orWhere('name', 'like', "%$query%")->get();
         }
 
         return view('frontend.all_products',compact('products', 'colors', 'sizes'));
@@ -66,6 +68,6 @@ class ProductController extends Controller
         $products = $query->get();
 
         return view('frontend.all_products', compact('products', 'colors', 'sizes'));
-    }    
+    }
 
 }

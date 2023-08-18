@@ -296,10 +296,13 @@
                     <a class="btn btn-outline-dark btn-square" onclick="AddToCart({{$product->id}})"
                       ><i class="fa fa-shopping-cart"></i
                     ></a>
-                    <a class="btn btn-outline-dark btn-square" href=""
-                      ><i class="far fa-heart"></i
-                    ></a>
-
+                    <a class="btn btn-outline-dark btn-square" onclick="favoriteProduct({{ $product->id }})">
+                        @if($product->isFavorite())
+                            <i class="fas fa-heart text-outline-dark"></i>
+                        @else
+                            <i class="far fa-heart"></i>
+                        @endif
+                    </a>
                   </div>
                 </div>
                 <div class="text-center py-4">

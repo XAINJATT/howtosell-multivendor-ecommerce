@@ -17,8 +17,22 @@
               My Account
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="{{ route('admin.login') }}" class="dropdown-item" type="button">Sign in</a>
-              <a href="register.html" class="dropdown-item" type="button">Sign up</a>
+            @auth
+                <a href="{{ route('adminDashboard') }}" class="dropdown-item" type="button">Go to Dashboard</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i data-feather="log-out"></i>
+                    {{ __('Logout') }}
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>              
+            @endauth
+            @guest
+                <a href="{{ route('admin.login') }}" class="dropdown-item" type="button">Sign in</a>
+                <a href="{{ route('register') }}" class="dropdown-item" type="button">Sign up</a>
+            @endguest
             </div>
           </div>
           <div class="btn-group">
@@ -76,20 +90,22 @@
         </a>
       </div>
       <div class="col-lg-4 col-6 text-left">
-        <form action="">
-          <div class="input-group">
+      <form action="{{ route('products') }}" method="GET">
+        <div class="input-group">
             <input
-              type="text"
-              class="form-control"
-              placeholder="Search for products"
+                type="text"
+                class="form-control"
+                name="q"
+                placeholder="Search for products"
+                value="{{ $query }}"
             />
             <div class="input-group-append">
-              <span class="input-group-text bg-transparent text-primary">
-                <i class="fa fa-search"></i>
-              </span>
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
-          </div>
-        </form>
+        </div>
+    </form>
       </div>
       <div class="col-lg-4 col-6 text-right">
         <p class="m-0">Customer Service</p>

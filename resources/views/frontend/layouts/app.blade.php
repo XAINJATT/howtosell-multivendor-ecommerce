@@ -39,7 +39,7 @@
 
     <!-- ****** Header Section Start Here ****** -->
 
-    @include('frontend.inc.header')
+    @include('frontend.inc.header', ['query' => $query ?? ''])
 
     <!-- Header Section End Here -->
 
@@ -90,6 +90,28 @@
                 }
             });
         }
+
+        function favoriteProduct(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ url('favorite-product') }}",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id': id,
+                },
+                dataType: "json",
+                success: function (response) {
+                    Toast.fire('success', response.msg, 'success');
+                    location.reload();
+                },
+                error: function (xhr) {
+                    if (xhr.status === 403) {
+                        Toast.fire('error', xhr.responseJSON.msg, 'error');
+                    }
+                }
+            });
+        }
+
     </script>
 
 

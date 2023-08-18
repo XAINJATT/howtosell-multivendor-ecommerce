@@ -135,14 +135,15 @@ Route::group(['prefix' => 'admin'], function(){
     });
 });
 //fontend
-Route::get('product-detail/{id}', [ProductController::class,'productDetail']);
-Route::get('products', [ProductController::class,'allProducts']);
+Route::get('product-detail/{id}', [ProductController::class,'productDetail'])->name('productDetail');
+Route::get('products', [ProductController::class,'allProducts'])->name('products');
 Route::get('filter-products', [ProductController::class, 'filterProducts'])->name('frontend.filter-products');
 Route::get('cart', [AddToCartController::class,'index']);
 Route::post('add-to-cart', [AddToCartController::class,'AddToCart']);
 Route::post('update-cart', [AddToCartController::class,'updateCart']);
 Route::post('apply-coupon', [AddToCartController::class,'applyCoupon']);
-
+Route::post('favorite-product', [FavoriteProductController::class,'FavoriteProduct']);
+Route::post('review/create', 'App\Http\Controllers\Frontend\ReviewController@create')->name('review.create');
 
 //Route::middleware(['auth'])->group(function () {
     Route::get('checkout', [OrderController::class,'checkout']);

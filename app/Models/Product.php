@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use App\Models\FavoriteProduct;
 
 class Product extends Model
 {
@@ -23,6 +25,15 @@ class Product extends Model
 
     public function ProductImages(){
         return $this->hasMany(ProductImage::class,'product_id','id');
+    }
+
+    public function isFavorite($userId = null) {
+        $userId = $userId ?: Auth::id(); // Get the authenticated user's ID if not provided
+
+        // Check if the product is favorited by the user
+        return FavoriteProduct::where('user_id', $userId)
+            ->where('product_id', $this->id)
+            ->exists();
     }
 
     // public function ProductOffers(){

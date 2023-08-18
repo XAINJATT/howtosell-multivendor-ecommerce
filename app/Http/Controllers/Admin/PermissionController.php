@@ -91,68 +91,117 @@ class PermissionController extends Controller
     public function add()
     {
         $page = "add";
-        $Permissions = Permission::all();
-        return view('admin.Permission.add', compact('page', 'Permissions'));
+    
+        try {
+            $permissions = DB::table('permissions')->get();
+    
+            return view('admin.Permission.add', compact('page', 'permissions'));
+        } catch (\Exception $e) {
+            return redirect()->route('permission')->with('error-message', 'An error occurred: ' . $e->getMessage());
+        }
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:Permissions,name,' . $request['name'] . ',id',
+            'name' => 'required|unique:permissions,name,' . $request['name'] . ',id',
         ]);
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
-            $Affected = Permission::create([
-                'name' => $request['name'],
-                'guard_name' => $request['guard_name'],
-                'created_at' => Carbon::now()
-            ]);
-            if ($Affected) {
-                return redirect()->route('permission')->with('success-message', 'Permission added successfully');
-            } else {
-                return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+            try {
+                DB::beginTransaction();
+    
+                $affected = DB::table('permissions')->insert([
+                    'name' => $request['name'],
+                    'guard_name' => $request['guard_name'],
+                    'created_at' => Carbon::now(),
+                ]);
+    
+                if ($affected) {
+                    DB::commit();
+                    return redirect()->route('permission')->with('success-message', 'Permission added successfully');
+                } else {
+                    DB::rollBack();
+                    return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+                }
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->route('permission')->with('error-message', 'An error occurred: ' . $e->getMessage());
             }
         }
     }
+    
 
     public function edit($id)
     {
         $page = 'edit';
-        $permission = Permission::where('id', $id)->First();
-        $Permissions = Permission::all();
-        return view('admin.Permission.edit', compact('page', 'permission', 'Permissions'));
+        
+        try {
+            $permission = DB::table('permissions')->where('id', $id)->first();
+    
+            if (!$permission) {
+                return redirect()->route('permission')->with('error-message', 'Permission not found');
+            }
+    
+            return view('admin.Permission.edit', compact('page', 'permission'));
+        } catch (\Exception $e) {
+            return redirect()->route('permission')->with('error-message', 'An error occurred: ' . $e->getMessage());
+        }
     }
+    
 
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:Permissions,name,' . $request['id'] . ',id',
+            'name' => 'required|unique:permissions,name,' . $request['id'] . ',id',
         ]);
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
-            $Affected = Permission::where('id', $request['id'])
-                ->update([
+            try {
+                DB::beginTransaction();
+    
+                $affected = DB::table('permissions')->where('id', $request['id'])->update([
                     'name' => $request['name'],
                     'guard_name' => $request['guard_name'],
-                    'updated_at' => Carbon::now()
+                    'updated_at' => Carbon::now(),
                 ]);
-            if ($Affected) {
-                return redirect()->route('permission')->with('success-message', 'Permission updated successfully');
-            } else {
-                return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+    
+                if ($affected !== false) {
+                    DB::commit();
+                    return redirect()->route('permission')->with('success-message', 'Permission updated successfully');
+                } else {
+                    DB::rollBack();
+                    return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+                }
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->route('permission')->with('error-message', 'An error occurred: ' . $e->getMessage());
             }
         }
     }
+    
 
     public function delete(Request $request)
     {
-        $Affected = Permission::where('id', $request['id'])->delete();
-        if ($Affected) {
-            return redirect()->route('permission')->with('success-message', 'Permission deleted successfully');
-        } else {
-            return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+        try {
+            DB::beginTransaction();
+    
+            $affected = DB::table('permissions')->where('id', $request['id'])->delete();
+    
+            if ($affected) {
+                DB::commit();
+                return redirect()->route('permission')->with('success-message', 'Permission deleted successfully');
+            } else {
+                DB::rollBack();
+                return redirect()->route('permission')->with('error-message', 'An unhandled error occurred');
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('permission')->with('error-message', 'An error occurred: ' . $e->getMessage());
         }
-    }
+    }    
 }

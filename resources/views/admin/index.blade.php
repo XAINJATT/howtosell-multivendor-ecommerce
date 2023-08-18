@@ -47,7 +47,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4>Total Products <br>3,897</h4>
+                                    <h4>Total Products <br>{{ $totalProducts }}</h4>
                                     <div>
                                         <img src="{{asset('public/storage/logo/product.png')}}" style="height: 100px;">
                                     </div>
@@ -59,9 +59,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4>Total Bookings <br>3,897</h4>
+                                    <h4>Total Orders <br>{{ $totalOrders }}</h4>
                                     <div>
-                                        <img src="{{asset('public/storage/logo/bookings.png')}}">
+                                        <img src="{{asset('public/storage/logo/orders.jpg')}}" style="height: 100px;">
                                     </div>
                                 </div>
                             </div>
@@ -71,9 +71,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4>Total Categories <br>3,897</h4>
+                                    <h4>Total Categories <br>{{ $totalCategories }}</h4>
                                     <div>
-                                        <img src="{{asset('public/storage/logo/earnings.png')}}">
+                                        <img src="{{asset('public/storage/logo/categories.jpg')}}" style="height: 100px;">
                                     </div>
                                 </div>
                             </div>
