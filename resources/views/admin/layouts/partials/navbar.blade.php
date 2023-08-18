@@ -32,7 +32,7 @@
                             <img src="{{$ProfilePic}}" alt="">
                         </div>
                         <div class="info text-center">
-                            <p class="name font-weight-bold mb-0">Rental Management System</p>
+                            <p class="name font-weight-bold mb-0">{{\Illuminate\Support\Facades\Auth::user()->name}}</p>
                             <p class="email text-muted mb-3">{{\Illuminate\Support\Facades\Auth::user()->email}}</p>
                         </div>
                     </div>
