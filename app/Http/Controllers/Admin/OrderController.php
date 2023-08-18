@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Helpers\SiteHelper;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class OrderController extends Controller
 {
@@ -91,5 +95,67 @@ class OrderController extends Controller
         );
 
         echo json_encode($json_data);
+    }
+
+
+
+    public function checkout(){
+        $cart = Cart::Content();
+        $total=0;
+        $coupon_amount = 0;
+        $shipping_amount=0;
+        $coupon_code = '';
+        if (Session::has('Coupon')){
+            $coupon_amount = Session::get('Coupon')->discount_amount;
+            $coupon_code = Session::get('Coupon')->coupon_code;
+        }
+
+        foreach ($cart as $item){
+            $total +=$item->price*$item->qty;
+        }
+        return view('frontend.checkout',compact('cart','total','coupon_amount','coupon_code','shipping_amount'));
+    }
+
+    public function saveOrderDetails(Request $request){
+        Session::put('orderRequest',$request->all());
+        $total = $request->total;
+        return view('stripe',compact('total'));
+    }
+
+    public function stripe(Request $request)
+    {
+        $total = $request->total;
+        return view('stripe',compact('total'));
+    }
+    public function stripePost(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+
+        $totalAmount = $request->total_amount;
+
+        // Calculate commission
+        $commission = $totalAmount * 0.05;
+
+        // Charge the customer
+        $customerCharge = Charge::create([
+            "amount" => $totalAmount * 100, // Convert to cents
+            "currency" => "usd",
+            "source" => $request->stripeToken,
+            "description" => "Test Payment"
+        ]);
+
+        if ($customerCharge->status == 'succeeded') {
+            // Create the booking
+            $this->createOrder($commission);
+            return redirect('/')->with(['success' => 'Order Created successfully']);
+        }
+
+        Session::flash('error', 'Something went wrong');
+        return back();
+    }
+
+    public function createOrder($commission){
+        dd('payment success');
     }
 }

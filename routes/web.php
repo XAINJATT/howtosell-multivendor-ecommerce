@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddToCartController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\frontend\ProductController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -133,11 +134,21 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('update-account-security', '\App\Http\Controllers\UserController@UpdateAccountSecurity');
     });
 });
-
+//fontend
 Route::get('product-detail/{id}', [ProductController::class,'productDetail']);
 Route::get('products', [ProductController::class,'allProducts']);
 Route::get('filter-products', [ProductController::class, 'filterProducts'])->name('frontend.filter-products');
 Route::get('cart', [AddToCartController::class,'index']);
 Route::post('add-to-cart', [AddToCartController::class,'AddToCart']);
+Route::post('update-cart', [AddToCartController::class,'updateCart']);
+Route::post('apply-coupon', [AddToCartController::class,'applyCoupon']);
 
+
+//Route::middleware(['auth'])->group(function () {
+    Route::get('checkout', [OrderController::class,'checkout']);
+    Route::post('save-order-details', [OrderController::class,'saveOrderDetails']);
+    Route::post('stripe', [OrderController::class,'stripe']);
+    Route::post('stripe', [OrderController::class,'stripePost'])->name('stripe.post');
+
+//});
 
