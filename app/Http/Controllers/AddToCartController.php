@@ -12,24 +12,30 @@ class AddToCartController extends Controller
 {
     public function index(){
         $cart = Cart::Content();
-        $total=0;
-        $coupon_amount = 0;
-        $shipping_amount=0;
-        $coupon_code = '';
-        if (Session::has('Coupon')){
-            $coupon_amount = Session::get('Coupon')->discount_amount;
-            $coupon_code = Session::get('Coupon')->coupon_code;
-        }
-        foreach ($cart as $item){
-            $total +=$item->price*$item->qty;
-        }
+        if (count($cart) > 0) {
+            $total = 0;
+            $coupon_amount = 0;
+            $shipping_amount = 0;
+            $coupon_code = '';
+            if (Session::has('Coupon')) {
+                $coupon_amount = Session::get('Coupon')->discount_amount;
+                $coupon_code = Session::get('Coupon')->coupon_code;
+            }
+            foreach ($cart as $item) {
+                $total += $item->price * $item->qty;
+            }
 
-        return view('frontend.cart',compact('cart','total','coupon_amount','coupon_code','shipping_amount'));
+            return view('frontend.cart', compact('cart', 'total', 'coupon_amount', 'coupon_code', 'shipping_amount'));
+        }else{
+            return redirect('products');
+        }
     }
     public function AddToCart(Request $request){
         $product = Product::where('id',$request->id)->first();
-        Cart::add($request->id, $product->name, 1, $product->price, 0, [
+        Cart::add($request->id, $product->name, $request->qty, $product->price, 0, [
             'img' => $product->product_image,
+            'size_id'=>$request->size_id,
+            'color_id'=>$request->color_id,
         ]);
         return response()->json([
             'msg' => 'Added successfully',
@@ -51,13 +57,12 @@ class AddToCartController extends Controller
 
     public function cart_remove(Request $req)
     {
-//        dd($req);
         $rowId = $req->input('rowId');
         Cart::remove($rowId);
         if (count(Cart::content()) == 0) {
-            Session::forget('CouponSession');
+            Session::forget('Coupon');
         }
-        return redirect()->route('checkout');
+        return response()->json(['msg' => 'Product Removed Successfully','status'=>true]);
     }
 
     public function applyCoupon(Request $request){

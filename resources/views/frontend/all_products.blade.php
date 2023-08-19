@@ -124,7 +124,7 @@
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="{{asset('public/storage/product/'.$product->product_image)}}" alt="">
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" onclick="AddToCart({{$product->id}})"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="{{url('product-detail/'.$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" onclick="favoriteProduct({{ $product->id }})">
                                         @if($product->isFavorite())
                                         <i class="fas fa-heart text-outline-dark"></i>

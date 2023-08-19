@@ -44,8 +44,8 @@
                     <strong class="text-dark mr-3">Sizes:</strong>
                     @foreach($product->ProductSizes as $sizes)
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="size-1" name="size">
-                        <label class="custom-control-label" for="size-1">{{$sizes->Size->name}}</label>
+                        <input type="radio" class="custom-control-input" id="size-{{$sizes->id}}" value="{{$sizes->id}}" name="size">
+                        <label class="custom-control-label" for="size-{{$sizes->id}}">{{$sizes->Size->name}}</label>
                     </div>
                     @endforeach
                     {{-- <div class="custom-control custom-radio custom-control-inline">--}}
@@ -69,8 +69,8 @@
                     <strong class="text-dark mr-3">Colors:</strong>
                     @foreach($product->ProductColors as $color)
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="color-1" name="color">
-                        <label class="custom-control-label" for="color-1">{{$color->Color->name}}</label>
+                        <input type="radio" class="custom-control-input" id="color-{{$color->id}}" value="{{$color->id}}" name="color">
+                        <label class="custom-control-label" for="color-{{$color->id}}">{{$color->Color->name}}</label>
                     </div>
                     @endforeach
                 </div>
@@ -81,14 +81,14 @@
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                        <input type="text" class="form-control bg-secondary border-0 text-center" value="1" id="qty">
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                    <button class="btn btn-primary px-3" onclick="AddToCart({{$product->id}})"><i class="fa fa-shopping-cart mr-1"></i> Add To
                         Cart
                     </button>
                 </div>
@@ -236,6 +236,27 @@
     }
 
     executeRating(ratingStars, ratingResult);
+
+
+    function AddToCart(id) {
+        let qty = $('#qty').val();
+        $.ajax({
+            type: "POST",
+            url: "{{ url('add-to-cart') }}",
+            data: {
+                '_token': "{{csrf_token()}}",
+                'id': id,
+                'qty':qty,
+                'size_id':$('input[name="size"]:checked').val(),
+                'color_id':$('input[name="color"]:checked').val()
+            },
+            dataType: "json",
+            success: function (response) {
+                Toast.fire('success',response.msg,'success');
+                location.href = '{{url('products')}}';
+            }
+        });
+    }
 </script>
 
 

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class BillingInfo extends Model
 {
     use HasFactory;
+    protected $guarded=[];
 }

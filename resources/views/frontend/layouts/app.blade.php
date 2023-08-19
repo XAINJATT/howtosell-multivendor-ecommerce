@@ -75,21 +75,21 @@
     @stack('front_js')
 
     <script>
-        function AddToCart(id) {
-            $.ajax({
-                type: "POST",
-                url: "{{ url('add-to-cart') }}",
-                data: {
-                    '_token': "{{csrf_token()}}",
-                    'id': id,
-                },
-                dataType: "json",
-                success: function (response) {
-                    Toast.fire('success',response.msg,'success');
-                    location.reload();
-                }
-            });
-        }
+        {{--function AddToCart(id) {--}}
+        {{--    $.ajax({--}}
+        {{--        type: "POST",--}}
+        {{--        url: "{{ url('add-to-cart') }}",--}}
+        {{--        data: {--}}
+        {{--            '_token': "{{csrf_token()}}",--}}
+        {{--            'id': id,--}}
+        {{--        },--}}
+        {{--        dataType: "json",--}}
+        {{--        success: function (response) {--}}
+        {{--            Toast.fire('success',response.msg,'success');--}}
+        {{--            location.reload();--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--}--}}
 
         function favoriteProduct(id) {
             $.ajax({

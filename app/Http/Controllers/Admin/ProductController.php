@@ -131,6 +131,7 @@ class ProductController extends Controller
             'long_description' => $request['long_description'],
             'soh' => $request['soh'],
             'product_image' => $FileImage,
+            'added_by'=>auth()->id(),
             'created_at' => Carbon::now()
         ]);
 
@@ -155,7 +156,7 @@ class ProductController extends Controller
                 "color_id" => $color,
             ]);
         }
-        
+
         foreach ($request->Sizes as $size) {
             $pF = ProductSize::create([
                 "product_id" => $Affected->id,

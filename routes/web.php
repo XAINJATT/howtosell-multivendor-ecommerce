@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\FavoriteProductController;
 use App\Http\Controllers\frontend\ProductController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -142,6 +143,7 @@ Route::get('cart', [AddToCartController::class,'index']);
 Route::post('add-to-cart', [AddToCartController::class,'AddToCart']);
 Route::post('update-cart', [AddToCartController::class,'updateCart']);
 Route::post('apply-coupon', [AddToCartController::class,'applyCoupon']);
+Route::post('remove-product', [AddToCartController::class,'cart_remove']);
 Route::post('favorite-product', [FavoriteProductController::class,'FavoriteProduct']);
 Route::post('review/create', 'App\Http\Controllers\Frontend\ReviewController@create')->name('review.create');
 

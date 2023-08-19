@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillingInfo;
+use App\Models\OrderItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Helpers\SiteHelper;
@@ -156,6 +158,56 @@ class OrderController extends Controller
     }
 
     public function createOrder($commission){
-        dd('payment success');
+
+        $orderRequest =  Session::get('orderRequest');
+        $coupon=null;
+        if (Session::has('Coupon')) {
+            $coupon = Session::get('Coupon');
+        }
+
+
+        BillingInfo::create([
+            "first_name" => $orderRequest['first_name'],
+            "last_name" => $orderRequest['last_name'],
+            "email" => $orderRequest['email'],
+            "phone" => $orderRequest['phone'],
+            "address" => $orderRequest['address'],
+            "country" => $orderRequest['country'],
+            "city" => $orderRequest['city'],
+            "province" => $orderRequest['state'],
+            "zip" => $orderRequest['zip_code'],
+        ]);
+        $cart = Cart::Content();
+        $subtotal=0;
+        foreach ($cart as $item){
+            $subtotal +=$item->price*$item->qty;
+        }
+
+       $order = Order::create([
+            'user_id'=>auth()->id(),
+            'coupon_id'=>$coupon ? $coupon->id : null,
+            'subtotal'=>$subtotal,
+            'total'=>$subtotal - ($coupon ? $coupon->discount_amount : 0),
+            'payment_status'=>'paid',
+            'paid_at'=>now(),
+       ]);
+
+       foreach ($cart as $item) {
+           $product =
+            OrderItem::create([
+                'order_id'=>$order->id,
+               'product_id' => $item->id,
+               'quantity'=>$item->qty,
+               'color_id'=>$item->options->color_id,
+               'size_id'=>$item->options->size_id,
+                'name'=>$item->name,
+                'product_price'=>$item->price,
+                'subtotal'=>$item->price * $item->qty
+
+            ]);
+       }
+
+        return back()->with(['success'=>'Order Created Successfully']);
+
     }
 }

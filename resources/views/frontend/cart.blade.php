@@ -57,7 +57,7 @@
                             </td>
                             <td class="align-middle">${{ $item->price * (int) $item->qty }}</td>
                             <td class="align-middle">
-                                <button class="btn btn-sm btn-danger">
+                                <button class="btn btn-sm btn-danger" onclick="removeProduct('{{$item->rowId}}')">
                                     <i class="fa fa-times"></i>
                                 </button>
                             </td>
@@ -180,6 +180,25 @@
                     }
                 });
             }
+        }
+
+        function removeProduct(rowId) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('remove-product') }}",
+                    data: {
+                        '_token': "{{csrf_token()}}",
+                        'rowId': rowId
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.status) {
+                            location.reload();
+                        }else{
+                            Toast.fire('',response.msg,'error')
+                        }
+                    }
+                });
         }
     </script>
 @endpush

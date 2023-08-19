@@ -67,6 +67,7 @@
                                     class='form-control card-expiry-year' placeholder='YYYY' size='4'
                                     type='text'>
                             </div>
+                            <input type="hidden" class="form-control" value="{{ $total }}" name="total_amount">
                         </div>
 
                         <div class='form-row row'>
