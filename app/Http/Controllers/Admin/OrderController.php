@@ -14,6 +14,7 @@ use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Stripe\Charge;
 use Stripe\Stripe;
 
@@ -40,21 +41,38 @@ class OrderController extends Controller
         $columnName = $request->post('columns')[$columnIndex]['data']; // Column name
         $columnSortOrder = $request->post('order')[0]['dir']; // asc or desc
 
+        $user = Auth::user(); // Get the authenticated user
+
+        $query = DB::table('orders');
+
+        // Filter orders based on user role
+        if (!$user->hasRole('admin')) {
+            $query->where('user_id', $user->id);
+        }
+
+        if ($searchTerm != '') {
+            $query->where(function ($query) use ($searchTerm) {
+                $query->orWhere('name', 'LIKE', '%' . $searchTerm . '%');
+            });
+        }
+
+        $totalRecords = $query->count();
+
         $fetch_data = null;
         $recordsTotal = null;
         $recordsFiltered = null;
         if ($searchTerm == '') {
-            $fetch_data = DB::table('orders')
+            $fetch_data = $query
                 ->orderBy($columnName, $columnSortOrder)
                 ->offset($start)
                 ->limit($limit)
                 ->get();
             $recordsTotal = sizeof($fetch_data);
-            $recordsFiltered = DB::table('orders')
+            $recordsFiltered = $query
                 ->orderBy($columnName, $columnSortOrder)
                 ->count();
         } else {
-            $fetch_data = DB::table('orders')
+            $fetch_data = $query
                 ->where(function ($query) use ($searchTerm) {
                     $query->orWhere('name', 'LIKE', '%' . $searchTerm . '%');
                 })
@@ -63,7 +81,7 @@ class OrderController extends Controller
                 ->limit($limit)
                 ->get();
             $recordsTotal = sizeof($fetch_data);
-            $recordsFiltered = DB::table('orders')
+            $recordsFiltered = $query
                 ->where(function ($query) use ($searchTerm) {
                     $query->orWhere('name', 'LIKE', '%' . $searchTerm . '%');
                 })
@@ -99,8 +117,6 @@ class OrderController extends Controller
         echo json_encode($json_data);
     }
 
-
-
     public function checkout(){
         $cart = Cart::Content();
         $total=0;
@@ -129,6 +145,7 @@ class OrderController extends Controller
         $total = $request->total;
         return view('stripe',compact('total'));
     }
+
     public function stripePost(Request $request)
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));

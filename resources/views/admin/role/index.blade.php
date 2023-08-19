@@ -21,11 +21,11 @@
                                 <h5 class="mb-3 mb-md-0">Roles > <span class="text-secondary">Role List</span></h5>
                             </div>
                             <div class="d-flex align-items-center flex-wrap text-nowrap mr-1">
-                                <button type="button" class="btn btn-primary mb-2 mb-md-0"
+                                <!-- <button type="button" class="btn btn-primary mb-2 mb-md-0"
                                         data-toggle="tooltip" title="Add Role"
                                         onclick="window.location.href='{{route('role.add')}}';">
                                     <i class="fa fa-plus mr-1"></i>Add Role
-                                </button>
+                                </button> -->
                             </div>
                         </div>
                     </div>
