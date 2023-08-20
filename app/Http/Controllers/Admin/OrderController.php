@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BillingInfo;
 use App\Models\OrderItem;
+use App\Models\OrderVender;
+use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Helpers\SiteHelper;
@@ -43,11 +45,18 @@ class OrderController extends Controller
 
         $user = Auth::user(); // Get the authenticated user
 
-        $query = DB::table('orders');
+        $query = new Order();
+
 
         // Filter orders based on user role
-        if (!$user->hasRole('admin')) {
+        if ($user->hasRole('Customer')) {
             $query->where('user_id', $user->id);
+        }
+
+        if ($user->hasRole('Vendor')){
+            $query->with(['orderVendors'])->whereHas('orderVendors',function ($q) use ($user){
+                $q->where('vendor_id',$user->id);
+            });
         }
 
         if ($searchTerm != '') {
@@ -210,7 +219,7 @@ class OrderController extends Controller
        ]);
 
        foreach ($cart as $item) {
-           $product =
+           $product = Product::where('id',$item->id)->first();
             OrderItem::create([
                 'order_id'=>$order->id,
                'product_id' => $item->id,
@@ -222,6 +231,15 @@ class OrderController extends Controller
                 'subtotal'=>$item->price * $item->qty
 
             ]);
+           $vendor_id = $product->added_by;
+            if (is_null($vendor_id)){
+                $vendor_id=1;
+            }
+           OrderVender::create([
+               'vendor_id'=>$vendor_id,
+               'order_id'=>$order->id,
+           ]);
+           Product::where('id',$item->id)->decrement($item->qty);
        }
 
         return back()->with(['success'=>'Order Created Successfully']);
