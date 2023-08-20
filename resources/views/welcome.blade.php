@@ -315,15 +315,24 @@
                     <h5>${{ $product->discounted_price }}</h5>
                     <h6 class="text-muted ml-2"><del>${{ $product->price }}</del></h6>
                   </div>
-                  <div
-                    class="d-flex align-items-center justify-content-center mb-1"
-                  >
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small>(99)</small>
+                  <div class="d-flex align-items-center justify-content-center mb-1">
+                    <!-- Average star rating -->
+                    @if ($product->reviews->count() > 0)
+                        @php
+                            $averageRating = $product->reviews->avg('rating');
+                            $roundedRating = round($averageRating / 5 * 5); // Convert to a 5-star rating
+                        @endphp
+                        <div class="text-primary mr-2">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $roundedRating)
+                                    <i class="fas fa-star text-primary mr-1"></i>
+                                @else
+                                    <i class="far fa-star text-primary mr-1"></i>
+                                @endif
+                            @endfor
+                            <small>({{ $product->reviews->count() }})</small>
+                        </div>
+                    @endif
                   </div>
                 </div>
               </div>

@@ -1,6 +1,14 @@
 @extends('frontend.layouts.app')
 
 @section('front_content')
+<style>
+.star-outline {
+    color: transparent; /* Hide the default star icon color */
+    border: 1px solid currentColor; /* Use the icon's current color for the border */
+    padding: 0; /* Remove any padding */
+    margin: 0; /* Remove any margin */
+}
+</style>
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
     @if(session('success-message'))
@@ -29,16 +37,25 @@
             <div class="h-100 bg-light p-30">
                 <h3>{{$product->name}}</h3>
                 <div class="d-flex mb-3">
-                    <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
-                    </div>
-                    <small class="pt-1">(99 Reviews)</small>
+                    <!-- Average star rating -->
+                    @if ($product->reviews->count() > 0)
+                        @php
+                            $averageRating = $product->reviews->avg('rating');
+                            $roundedRating = round($averageRating / 5 * 5); // Convert to a 5-star rating
+                        @endphp
+                        <div class="text-primary mr-2">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $roundedRating)
+                                    <i class="fas fa-star text-primary mr-1"></i>
+                                @else
+                                    <i class="far fa-star text-primary mr-1"></i>
+                                @endif
+                            @endfor
+                            <small>({{ $product->reviews->count() }})</small>
+                        </div>
+                    @endif
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">${{$product->price}}</h3>
+                <h3 class="font-weight-semi-bold mb-4">${{$product->discounted_price}}</h3>
                 <p class="mb-4">{{$product->short_description}}</p>
                 <div class="d-flex mb-3">
                     <strong class="text-dark mr-3">Sizes:</strong>
@@ -117,24 +134,12 @@
             <div class="bg-light p-30">
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ $product->reviews->count() }})</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
                         <h4 class="mb-3">Product Description</h4>
-                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
-                            invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
-                            consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum
-                            diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam
-                            sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor
-                            aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam
-                            kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea
-                            invidunt.</p>
-                        <p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor
-                            consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita
-                            clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit
-                            rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna
-                            et.</p>
+                        <p>{{$product->long_description}}</p>
                     </div>
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">

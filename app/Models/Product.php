@@ -36,6 +36,11 @@ class Product extends Model
             ->exists();
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     // public function ProductOffers(){
     //     return $this->hasMany(ProductOffer::class,'product_id','id');
     // }

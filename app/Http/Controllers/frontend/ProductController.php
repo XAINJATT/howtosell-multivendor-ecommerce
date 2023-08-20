@@ -15,20 +15,26 @@ class ProductController extends Controller
         return view('frontend.product_detail',compact('product'));
     }
 
-    public function allProducts(Request $request){
+    public function allProducts(Request $request)
+    {
         $query = $request->input('q');
         $colors = Color::all();
         $sizes = Size::all();
-        $category = \request('category_id');
+        $category = $request->input('category_id');
+    
         if ($category) {
-            $products = Product::with(['ProductColors.Color', 'ProductSizes.Size', 'ProductImages'])
-            ->orWhere('name', 'like', "%$query%")->where('category_id', $category)->get();
-        }else{
-            $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages'])->orWhere('name', 'like', "%$query%")->get();
+            $products = Product::with(['ProductColors.Color', 'ProductSizes.Size', 'ProductImages', 'reviews']) // Load reviews
+                ->orWhere('name', 'like', "%$query%")
+                ->where('category_id', $category)
+                ->get();
+        } else {
+            $products = Product::with(['ProductColors', 'ProductSizes', 'ProductImages', 'reviews']) // Load reviews
+                ->orWhere('name', 'like', "%$query%")
+                ->get();
         }
-
-        return view('frontend.all_products',compact('products', 'colors', 'sizes'));
-    }
+    
+        return view('frontend.all_products', compact('products', 'colors', 'sizes'));
+    }    
 
     public function filterProducts(Request $request)
     {
