@@ -133,6 +133,9 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('edit-profile', '\App\Http\Controllers\UserController@EditProfile');
         Route::post('update-personal-details', '\App\Http\Controllers\UserController@UpdatePersonalDetails');
         Route::post('update-account-security', '\App\Http\Controllers\UserController@UpdateAccountSecurity');
+
+
+        Route::post('withdrawal-funds', [OrderController::class, 'WithdrawalFunds'])->name('admin.WithdrawalFunds');
     });
 });
 //fontend

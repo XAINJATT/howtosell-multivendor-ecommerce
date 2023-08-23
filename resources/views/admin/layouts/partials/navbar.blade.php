@@ -16,6 +16,12 @@
     </a>
     <div class="navbar-content">
         <ul class="navbar-nav">
+            <li class="nav-item dropdown nav-profile">
+                My Balance
+                <a href="#" data-toggle="modal" data-target="#staticBackdrop" style="padding: 2px 10px" >
+                    <span class="pl-3 pr-3">{{ $balance }}</span>
+                </a>
+            </li>
             @php
                 $Profile = \Illuminate\Support\Facades\DB::table('users')->where('id', '=', \Illuminate\Support\Facades\Auth::id())->get();
                 $ProfilePic = asset('public/storage/logo/logo.png');
@@ -67,3 +73,35 @@
         </ul>
     </div>
 </nav>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('admin.WithdrawalFunds') }}" method="post">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Withdraw Payment</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="destination" class="form-label">Destination Account</label>
+                                <input type="text" class="form-control" name="destination">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="amount" class="form-label">Withdrawal Amount</label>
+                                <input type="number" class="form-control" name="amount" max="{{ $balance }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>

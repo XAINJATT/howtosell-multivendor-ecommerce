@@ -13,12 +13,15 @@ use App\Helpers\SiteHelper;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use App\Models\Wallet;
+use App\Models\WalletTransaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Charge;
 use Stripe\Stripe;
+use Stripe\Transfer;
 
 class OrderController extends Controller
 {
@@ -239,10 +242,42 @@ class OrderController extends Controller
                'vendor_id'=>$vendor_id,
                'order_id'=>$order->id,
            ]);
+           $total_amount = $item->price * $item->qty;
+           $company_amount = ($total_amount * 0.05);
+           $vendor_amount = $total_amount - $company_amount;
+
+           WalletTrans($vendor_id, $vendor_amount, $order->id, $item->id); // vendor trans
+           WalletTrans(1, $company_amount, $order->id, $item->id); // company trans
+
            Product::where('id',$item->id)->decrement($item->qty);
        }
 
         return back()->with(['success'=>'Order Created Successfully']);
 
+    }
+    public function WithdrawalFunds(Request $request){
+        \Stripe\Stripe::setApiKey('sk_test_51MeLJ9Hi0zLtGII5TCzZvhak8bUpSPnRiES8JpXUmimvhbXYMAO5Wir7rtGi5iyvOdhQEyrEAZYYtl7f88spFxTC00aOJ9TkJZ');
+        try {
+
+            $transfer = Transfer::create([
+                "amount" => $request->amount,
+                "currency" => "usd",
+                "destination" => $request->destination,
+            ]);
+
+
+
+            if($transfer->id){
+                Wallet::where('id',auth()->id())->decrement('balance',$request->balance);
+
+                return back()->with(['success' => 'Funds Transfer successfully.']);
+            }
+
+            return back()->with(['error' => 'Transaction Failed.']);
+
+        }catch (\Exception $e){
+            return back()->with(['error' => 'Invalid Amount Destination/account']);
+
+        }
     }
 }
