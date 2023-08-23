@@ -1,7 +1,12 @@
 @extends('frontend.layouts.app')
 
 @section('front_content')
-
+<style>
+.pagination .page-link {
+    font-size: 14px; /* Adjust the font size as needed */
+    padding: 0.25rem 0.5rem; /* Adjust padding as needed */
+}
+</style>
 
 <form action="{{ route('frontend.filter-products') }}" method="get">
     <!-- Shop Start -->
@@ -10,7 +15,7 @@
             <!-- Shop Sidebar Start -->
             <div class="col-lg-3 col-md-4">
                 <!-- Price Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+                <!-- <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
                 <div class="bg-light p-4 mb-30">
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" checked id="price-all">
@@ -42,7 +47,38 @@
                         <label class="custom-control-label" for="price-5">$400 - $500</label>
                         <span class="badge border font-weight-normal">168</span>
                     </div>
+                </div> -->
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <!-- All Price option -->
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" checked id="price-all">
+                        <label class="custom-control-label" for="price-all">All Price</label>
+                        @if(request()->routeIs('filter-products'))
+                            <span class="badge border font-weight-normal">{{ $products->total() }}</span>
+                        @else
+                            @if(isset($priceRangeCounts) && is_array($priceRangeCounts))
+                                @php
+                                    $totalProductCount = 0;
+                                    foreach($priceRangeCounts as $count) {
+                                        $totalProductCount += $count;
+                                    }
+                                @endphp
+                                <span class="badge border font-weight-normal">{{ $totalProductCount }}</span>
+                            @endif
+                        @endif
+                    </div>
+
+                    <!-- Price options -->
+                    @foreach ($priceRangeCounts as $range => $count)
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-{{ $loop->index }}" name="price_range[]" value="{{ $range }}">
+                        <label class="custom-control-label" for="price-{{ $loop->index }}">{{ $range }}</label>
+                        <span class="badge border font-weight-normal">{{ $count }}</span>
+                    </div>
+                    @endforeach
                 </div>
+
                 <!-- Price End -->
 
                 <input type="hidden" name="selected_price_ranges" id="selected_price_ranges" value="">
@@ -124,7 +160,7 @@
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="{{asset('public/storage/product/'.$product->product_image)}}" alt="">
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href="{{url('product-detail/'.$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="{{url('product-detail/'.$product->slug)}}"><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" onclick="favoriteProduct({{ $product->id }})">
                                         @if($product->isFavorite())
                                         <i class="fas fa-heart text-outline-dark"></i>
@@ -135,7 +171,7 @@
                                 </div>
                             </div>
                             <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="{{url('product-detail/'.$product->id)}}">{{$product->name}}</a>
+                                <a class="h6 text-decoration-none text-truncate" href="{{url('product-detail/'.$product->slug)}}">{{$product->name}}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>${{ $product->discounted_price }}</h5>
                                 <h6 class="text-muted ml-2"><del>${{ $product->price }}</del></h6>
@@ -163,16 +199,8 @@
                         </div>
                     </div>
                     @endforeach
-                    <div class="col-12">
-                        <nav>
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
+                    <div class="col-12 d-flex justify-content-end">
+                        {{ $products->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>

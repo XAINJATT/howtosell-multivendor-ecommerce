@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets_login/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets_login/css/all.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets_login/css/stylesheet.css')}}"/>
+    <link href="{{asset('public/frontend/asset/css/style.css')}}" rel="stylesheet" />
     <!-- Colors Css -->
     <link id="color-switcher" type="text/css" rel="stylesheet" href="#"/>
 
@@ -56,11 +57,25 @@
 <body>
 
 <div id="main-wrapper" class="oxyy-login-register h-100 d-flex flex-column bg-transparent">
+    <div class="container-fluid bg-white py-2">
+        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+            <div class="col-lg-4">
+                <a href="" class="text-decoration-none logo">
+                <span class="h1 text-uppercase text-primary bg-dark px-2" style="background-color: #3D464D !important">How to</span>
+                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1" style="background-color: #FFD333 !important">Sell?</span>
+                </a>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+    </div>
     <div class="container my-auto">
         <div class="row no-gutters h-100">
             <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4 m-auto py-5">
-                <div class="logo text-center mb-2">
-                    <img src="{{ asset('public/storage/logo/logo.png')}}" alt="logo-small" class="img-fluid mb-3" style="height: 110px;width: 110px;">
+                <div class="logo text-center  mb-4">
+                    <a href="" class="text-decoration-none logo">
+                        <span class="h1 text-uppercase text-primary px-5" style="font-size: 5.0rem !important;">Welcome</span>
+                    </a>
                 </div>
                 <h5 class="text-muted font-weight-normal mb-4 text-center color-custom-primary primaryColor">Log in to your account</h5>
                 <div class="row">

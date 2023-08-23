@@ -100,6 +100,15 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('product/update', '\App\Http\Controllers\Admin\ProductController@update')->name('product.update');
         Route::post('product/delete', '\App\Http\Controllers\Admin\ProductController@delete')->name('product.delete');
 
+        // Company
+        Route::get('company', '\App\Http\Controllers\Admin\CompanyController@index')->name('company');
+        Route::get('company/add', '\App\Http\Controllers\Admin\CompanyController@add')->name('company.add');
+        Route::post('company/store', '\App\Http\Controllers\Admin\CompanyController@store')->name('company.store');
+        Route::post('company/load', '\App\Http\Controllers\Admin\CompanyController@load')->name('company.all');
+        Route::get('company/edit/{id}', '\App\Http\Controllers\Admin\CompanyController@edit')->name('company.edit');
+        Route::post('company/update', '\App\Http\Controllers\Admin\CompanyController@update')->name('company.update');
+        Route::post('company/delete', '\App\Http\Controllers\Admin\CompanyController@delete')->name('company.delete');
+
         // Category
         Route::get('category', '\App\Http\Controllers\Admin\CategoryController@index')->name('category');
         Route::get('category/add', '\App\Http\Controllers\Admin\CategoryController@add')->name('category.add');
@@ -108,8 +117,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('category/edit/{id}', '\App\Http\Controllers\Admin\CategoryController@edit')->name('category.edit');
         Route::post('category/update', '\App\Http\Controllers\Admin\CategoryController@update')->name('category.update');
         Route::post('category/delete', '\App\Http\Controllers\Admin\CategoryController@delete')->name('category.delete');
-        Route::post('city/CheckForDuplicateCategory', '\App\Http\Controllers\Admin\CityController@CheckForDuplicateCategory')->name('category.CheckForDuplicateCategory');
-
+        Route::post('category/CheckForDuplicateCompany', '\App\Http\Controllers\Admin\CategoryController@CheckForDuplicateCategory')->name('category.CheckForDuplicateCategory');
+        
         // Coupon
         Route::get('coupon', '\App\Http\Controllers\Admin\CouponController@index')->name('coupon');
         Route::get('coupon/add', '\App\Http\Controllers\Admin\CouponController@add')->name('coupon.add');

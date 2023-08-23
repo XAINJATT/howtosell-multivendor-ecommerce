@@ -36,6 +36,7 @@
         MakeOrderTable();
         MakeColorTable();
         MakeSizeTable();
+        MakeCompanyTable();
     });
 
     function SetDatePicker(Id, Today = '', Start = '', End = '') {
@@ -120,6 +121,40 @@
         $("#deleteCategoryModal").modal('toggle');
     }
     // CATEGORY - END
+
+    // COMPANY - START
+    function MakeCompanyTable() {
+        if ($("#company_table").length) {
+            $("#company_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('company.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'image', orderable: false},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteCompany(e){
+        let id = e.split('||')[1];
+        $("#deleteCompanyId").val(id);
+        $("#deleteCompanyModal").modal('toggle');
+    }
+    // COMPANY - END
 
     // PRODUCT - START
     function MakeProductTable() {

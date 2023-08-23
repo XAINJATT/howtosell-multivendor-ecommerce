@@ -124,7 +124,7 @@
           <div class="offer-text">
             <h6 class="text-white text-uppercase">Earn Profit</h6>
             <h3 class="text-white mb-3">Want to Sell?</h3>
-            <a href="" class="btn btn-primary">Sell Now</a>
+            <a href="{{route('product.add')}}" class="btn btn-primary">Sell Now</a>
           </div>
         </div>
         <div class="product-offer mb-30" style="height: 200px">
@@ -132,54 +132,28 @@
           <div class="offer-text">
             <h6 class="text-white text-uppercase">Save 20%</h6>
             <h3 class="text-white mb-3">Special Offer</h3>
-            <a href="" class="btn btn-primary">Shop Now</a>
+            <a href="{{route('products')}}" class="btn btn-primary">Shop Now</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-     <div class="container-fluid py-5">
-        <div class="row px-xl-5">
-          <div class="col">
+  <div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="col">
             <div class="owl-carousel vendor-carousel">
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/0.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/1.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/2.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/3.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/4.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/5.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/6.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/7.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/8.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/9.jpg')}}" alt="" />
-              </div>
-              <div class="bg-light p-4">
-                <img src="{{asset('public/frontend/asset/img/10.jpg')}}" alt="" />
-              </div>
+                @foreach ($companyDetails as $companyDetail)
+                    <div class="bg-light p-4">
+                      <a href="{{ $companyDetail->link }}">
+                        <img src="{{ asset('public/storage/company/' . $companyDetail->image) }}" alt="" />
+                      </a>  
+                      </div>
+                @endforeach
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+  </div>
       <!-- Vendor End -->
 
       <!-- Categories Start -->
@@ -263,7 +237,7 @@
               <div class="offer-text">
                   <h6 class="text-white text-uppercase">Earn Profit</h6>
                   <h3 class="text-white mb-3">Want to Sell?</h3>
-                  <a href="" class="btn btn-primary">Sell Now</a>
+                  <a href="{{route('product.add')}}" class="btn btn-primary">Sell Now</a>
               </div>
             </div>
           </div>
@@ -273,7 +247,7 @@
               <div class="offer-text">
                 <h6 class="text-white text-uppercase">Save 20%</h6>
                 <h3 class="text-white mb-3">Special Offer</h3>
-                <a href="" class="btn btn-primary">Shop Now</a>
+                <a href="{{route('products')}}" class="btn btn-primary">Shop Now</a>
               </div>
             </div>
           </div>
@@ -293,7 +267,7 @@
                 <div class="product-img position-relative overflow-hidden">
                   <img class="img-fluid w-100" src="{{asset('public/storage/product' . '/' . $product->product_image)}}" alt="" />
                   <div class="product-action">
-                    <a class="btn btn-outline-dark btn-square" href="{{url('product-detail/'.$product->id)}}"
+                    <a class="btn btn-outline-dark btn-square" href="{{url('product-detail/'.$product->slug)}}"
                       ><i class="fa fa-shopping-cart"></i
                     ></a>
                     <a class="btn btn-outline-dark btn-square" onclick="favoriteProduct({{ $product->id }})">
@@ -306,7 +280,7 @@
                   </div>
                 </div>
                 <div class="text-center py-4">
-                  <a class="h6 text-decoration-none text-truncate" href="{{url('product-detail/'.$product->id)}}">
+                  <a class="h6 text-decoration-none text-truncate" href="{{url('product-detail/'.$product->slug)}}">
                       {{ $product->name }}
                   </a>
                   <div

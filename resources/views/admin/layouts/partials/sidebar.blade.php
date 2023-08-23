@@ -1,7 +1,8 @@
 <nav class="sidebar">
     <div class="sidebar-header">
-        <a href="#" class="sidebar-brand">
-            <img src="{{ asset('public/storage/logo/logo.png')}}" alt="logo-small" style="width: 80px; height: 65px;">
+        <a href="" class="text-decoration-none logo">
+            <span class="h4 text-uppercase text-primary bg-dark px-2" style="background-color: #3D464D !important">How to</span>
+            <span class="h4 text-uppercase text-dark bg-primary px-2 ml-n1" style="background-color: #FFD333 !important">Sell?</span>
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>
@@ -53,6 +54,23 @@
                     <a href="{{url('admin/category')}}" class="nav-link">
                         <i class="link-icon" data-feather="shopping-cart"></i>
                         <span class="link-title">Category</span>
+                    </a>
+                </li>
+                @endif
+            @endcan
+            @can('company')
+                @if($page == "company")
+                <li class="nav-item active">
+                    <a href="{{url('admin/company')}}" class="nav-link">
+                        <i class="link-icon" data-feather="shopping-bag"></i>
+                        <span class="link-title">Companies</span>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a href="{{url('admin/company')}}" class="nav-link">
+                        <i class="link-icon" data-feather="shopping-bag"></i>
+                        <span class="link-title">Company</span>
                     </a>
                 </li>
                 @endif

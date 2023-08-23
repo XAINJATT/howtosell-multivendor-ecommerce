@@ -15,7 +15,7 @@ class SiteHelper
     {
         $Settings = array();
         $Settings['PrimaryColor'] = '#ffc800';
-        $Settings['AppName'] = 'Rental Management With Location';
+        $Settings['AppName'] = 'How to sell';
         $Settings['Currency'] = 'USD';
         $Settings['Pagination'] = 15;
         return $Settings;

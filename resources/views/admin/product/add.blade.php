@@ -48,6 +48,9 @@
                                         <div class="col-md-6 mt-2">
                                             <label for="name" class="font-weight-bold">Name <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" placeholder="Enter Name" name="name" id="name" required>
+                                            @error('name')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6 mb-2">
                                             <label class="font-weight-bold text-black" for="category">Category <span

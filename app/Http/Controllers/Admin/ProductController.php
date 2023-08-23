@@ -115,59 +115,70 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        /* 1 - Image */
-        $FileImage = "";
-        if ($request->has('image')) {
-            $FileImage = 'Image-' . Carbon::now()->format('Ymd-His') . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('public/product/', $FileImage);
-        }
-
-        $Affected = Product::create([
-            'name' => $request['name'],
-            'category_id' => $request['category'],
-            'price' => $request['price'],
-            'discounted_price' => $request['discounted_price'],
-            'short_description' => $request['short_description'],
-            'long_description' => $request['long_description'],
-            'soh' => $request['soh'],
-            'product_image' => $FileImage,
-            'added_by'=>auth()->id(),
-            'created_at' => Carbon::now()
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:products,name',
         ]);
-
-        $stock = new Stock();
-        $stock->product_id = $Affected->id;
-        $stock->qty = $Affected->soh;
-        $stock->type = 0;
-        $stock->save();
-
-        foreach ($request->other_images as $image) {
-            $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('product'), $imageName);
-            ProductImage::create([
-                'product_id' => $Affected->id,
-                'image' => 'public/product/' . $imageName
-            ]);
-        }
-
-        foreach ($request->Colors as $color) {
-            $pF = ProductColor::create([
-                "product_id" => $Affected->id,
-                "color_id" => $color,
-            ]);
-        }
-
-        foreach ($request->Sizes as $size) {
-            $pF = ProductSize::create([
-                "product_id" => $Affected->id,
-                "size_id" => $size,
-            ]);
-        }
-
-        if ($Affected) {
-            return redirect()->route('product')->with('success-message', 'Product added successfully');
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
-            return redirect()->route('product')->with('error-message', 'An unhandled error occurred');
+            /* 1 - Image */
+            $FileImage = "";
+            if ($request->has('image')) {
+                $FileImage = 'Image-' . Carbon::now()->format('Ymd-His') . '.' . $request->file('image')->extension();
+                $request->file('image')->storeAs('public/product/', $FileImage);
+            }
+
+            // Create a slug from the category name
+            $slug = Str::slug($request['name']);
+
+            $Affected = Product::create([
+                'name' => $request['name'],
+                'slug' => $slug,
+                'category_id' => $request['category'],
+                'price' => $request['price'],
+                'discounted_price' => $request['discounted_price'],
+                'short_description' => $request['short_description'],
+                'long_description' => $request['long_description'],
+                'soh' => $request['soh'],
+                'product_image' => $FileImage,
+                'added_by'=>auth()->id(),
+                'created_at' => Carbon::now()
+            ]);
+
+            $stock = new Stock();
+            $stock->product_id = $Affected->id;
+            $stock->qty = $Affected->soh;
+            $stock->type = 0;
+            $stock->save();
+
+            foreach ($request->other_images as $image) {
+                $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('product'), $imageName);
+                ProductImage::create([
+                    'product_id' => $Affected->id,
+                    'image' => 'public/product/' . $imageName
+                ]);
+            }
+
+            foreach ($request->Colors as $color) {
+                $pF = ProductColor::create([
+                    "product_id" => $Affected->id,
+                    "color_id" => $color,
+                ]);
+            }
+
+            foreach ($request->Sizes as $size) {
+                $pF = ProductSize::create([
+                    "product_id" => $Affected->id,
+                    "size_id" => $size,
+                ]);
+            }
+
+            if ($Affected) {
+                return redirect()->route('product')->with('success-message', 'Product added successfully');
+            } else {
+                return redirect()->route('product')->with('error-message', 'An unhandled error occurred');
+            }
         }
     }
 
@@ -184,73 +195,84 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
-        /* 1 - Image */
-        $FileImage = "";
-        if ($request->has('image')) {
-            if ($request['old_product_image'] != "") {
-                $Path = public_path('storage/product') . '/' . $request['old_product_image'];
-                if (file_exists($Path)) {
-                    unlink($Path);
-                }
-            }
-            $FileImage = 'Image-' . Carbon::now()->format('Ymd-His') . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('public/product/', $FileImage);
-        } else {
-            $FileProfile = $request['old_product_image'];
-        }
-
-        $product = Product::findOrFail($request['id']);
-
-        $product->update([
-            'name' => $request['name'],
-            'category_id' => $request['category'],
-            'price' => $request['price'],
-            'discounted_price' => $request['discounted_price'],
-            'short_description' => $request['short_description'],
-            'long_description' => $request['long_description'],
-            'soh' => $request['soh'],
-            'product_image' => $FileImage ?: $product->product_image,
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:products,name,' . $request['id'],
         ]);
-
-        // Update other images
-        if ($request['other_images']) {
-            // Delete existing other images
-            foreach ($product->ProductImages as $image) {
-                $imagePath = $image->image;
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        } else {
+            /* 1 - Image */
+            $FileImage = "";
+            if ($request->has('image')) {
+                if ($request['old_product_image'] != "") {
+                    $Path = public_path('storage/product') . '/' . $request['old_product_image'];
+                    if (file_exists($Path)) {
+                        unlink($Path);
+                    }
                 }
-                $image->delete();
+                $FileImage = 'Image-' . Carbon::now()->format('Ymd-His') . '.' . $request->file('image')->extension();
+                $request->file('image')->storeAs('public/product/', $FileImage);
+            } else {
+                $FileProfile = $request['old_product_image'];
             }
-            foreach ($request->other_images as $image) {
-                $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('product'), $imageName);
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'image' => 'public/product/' . $imageName
+
+            $product = Product::findOrFail($request['id']);
+
+            // Create a slug from the category name
+            $slug = Str::slug($request['name']);
+
+            $product->update([
+                'name' => $request['name'],
+                'slug' => $slug,
+                'category_id' => $request['category'],
+                'price' => $request['price'],
+                'discounted_price' => $request['discounted_price'],
+                'short_description' => $request['short_description'],
+                'long_description' => $request['long_description'],
+                'soh' => $request['soh'],
+                'product_image' => $FileImage ?: $product->product_image,
+            ]);
+
+            // Update other images
+            if ($request['other_images']) {
+                // Delete existing other images
+                foreach ($product->ProductImages as $image) {
+                    $imagePath = $image->image;
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath);
+                    }
+                    $image->delete();
+                }
+                foreach ($request->other_images as $image) {
+                    $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('product'), $imageName);
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image' => 'public/product/' . $imageName
+                    ]);
+                }
+            }
+
+            // Update colors
+            $product->ProductColors()->delete();
+            foreach ($request->Colors as $color) {
+                ProductColor::create([
+                    "product_id" => $product->id,
+                    "color_id" => $color,
                 ]);
             }
-        }
 
-        // Update colors
-        $product->ProductColors()->delete();
-        foreach ($request->Colors as $color) {
-            ProductColor::create([
-                "product_id" => $product->id,
-                "color_id" => $color,
-            ]);
-        }
+            // Update sizes
+            $product->ProductSizes()->delete();
+            foreach ($request->Sizes as $size) {
+                ProductSize::create([
+                    "product_id" => $product->id,
+                    "size_id" => $size,
+                ]);
+            }
 
-        // Update sizes
-        $product->ProductSizes()->delete();
-        foreach ($request->Sizes as $size) {
-            ProductSize::create([
-                "product_id" => $product->id,
-                "size_id" => $size,
-            ]);
+            return redirect()->route('product')->with('success-message', 'Product updated successfully');
         }
-
-        return redirect()->route('product')->with('success-message', 'Product updated successfully');
     }
 
     public function delete(Request $request)

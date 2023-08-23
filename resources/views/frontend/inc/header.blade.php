@@ -149,7 +149,7 @@
 {{--              </div>--}}
 {{--            </div>--}}
             @foreach($all_categories as $category)
-                <a href="{{url('products')}}?category_id={{$category->id}}" class="nav-item nav-link">{{$category->name}}</a>
+                <a href="{{url('products')}}?category={{$category->slug}}" class="nav-item nav-link">{{$category->name}}</a>
             @endforeach
           </div>
         </nav>

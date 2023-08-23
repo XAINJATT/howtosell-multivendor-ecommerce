@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\Language;
 use App\Models\Product;
 use App\Models\WebLangDetail;
@@ -18,7 +19,7 @@ class FrontendController extends Controller
     public function index()
     {
         $categoryDetails = Category::with('products')->get();
-
+        $companyDetails = Company::all();
         $searchCategory = \request('category');
         $searchProduct = \request('search_product');
         $orderBy = null;
@@ -102,7 +103,7 @@ class FrontendController extends Controller
             ->groupBy('category_id')
             ->pluck('count', 'category_id');
 
-        return view('welcome', compact('products', 'categoryDetails', 'productCounts'));
+        return view('welcome', compact('products', 'categoryDetails', 'productCounts', 'companyDetails'));
     }
 
     public function changeLocale(Request $request)

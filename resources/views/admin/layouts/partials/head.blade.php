@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="{{asset('public/assets/vendors/flag-icon-css/css/flag-icon.min.css')}}" type="text/css">
 <link rel="stylesheet" href="{{asset('public/assets/vendors/select2/select2.min.css')}}" type="text/css">
 <link rel="stylesheet" href="{{asset('public/assets/vendors/datatables/dataTables.bootstrap4.css')}}" type="text/css">
+<link href="{{asset('public/frontend/asset/css/style.css')}}" rel="stylesheet" />
 <!-- endinject -->
 
 <!-- Layout styles -->
