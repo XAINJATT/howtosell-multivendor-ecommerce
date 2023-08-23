@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2023 at 04:36 AM
+-- Generation Time: Aug 20, 2023 at 07:39 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.3
 
@@ -61,6 +61,13 @@ CREATE TABLE `categories` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, 'Josiah Velez', 'josiah-velez', 'Image-20230819-175350.jpg', '2023-08-20 00:53:50', '2023-08-20 00:53:50', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -73,6 +80,13 @@ CREATE TABLE `colors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `colors`
+--
+
+INSERT INTO `colors` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Black', '2023-08-20 00:54:00', '2023-08-20 00:54:00');
 
 -- --------------------------------------------------------
 
@@ -119,6 +133,13 @@ CREATE TABLE `favorite_products` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `favorite_products`
+--
+
+INSERT INTO `favorite_products` (`id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, '2023-08-20 03:45:44', '2023-08-20 03:45:44');
 
 -- --------------------------------------------------------
 
@@ -176,7 +197,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2023_08_13_093522_create_shipping_infos_table', 1),
 (23, '2023_08_13_095324_create_stocks_table', 1),
 (24, '2023_08_15_202759_create_reviews_table', 1),
-(25, '2023_08_16_201933_create_favorite_products_table', 1);
+(25, '2023_08_16_201933_create_favorite_products_table', 1),
+(26, '2023_08_20_191551_create_order_venders_table', 2);
 
 -- --------------------------------------------------------
 
@@ -256,6 +278,20 @@ CREATE TABLE `order_items` (
   `promo_discount` double DEFAULT NULL,
   `subtotal` double DEFAULT NULL,
   `total` double DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_venders`
+--
+
+CREATE TABLE `order_venders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  `vendor_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -372,6 +408,14 @@ CREATE TABLE `products` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `category_id`, `name`, `price`, `discounted_price`, `product_image`, `short_description`, `long_description`, `soh`, `language_id`, `added_by`, `country_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Dana Carver', 1000, 800, 'Image-20230819-175440.jpg', 'Aliqua Consequat P', 'Sunt molestiae volup', 581, NULL, 1, NULL, '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(2, 1, 'Todd Vaughn', 919, 700, 'Image-20230819-204336.jpg', 'Sint consequat Dolo', 'Ratione ratione elit', 716, NULL, 1, NULL, '2023-08-20 03:43:36', '2023-08-20 03:43:36');
+
 -- --------------------------------------------------------
 
 --
@@ -385,6 +429,14 @@ CREATE TABLE `product_colors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_colors`
+--
+
+INSERT INTO `product_colors` (`id`, `product_id`, `color_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(2, 2, 1, '2023-08-20 03:43:36', '2023-08-20 03:43:36');
 
 -- --------------------------------------------------------
 
@@ -400,6 +452,23 @@ CREATE TABLE `product_images` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`, `updated_at`) VALUES
+(1, 1, 'public/product/1692464080299.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(2, 1, 'public/product/169246408035.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(3, 1, 'public/product/1692464080220.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(4, 1, 'public/product/1692464080443.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(5, 1, 'public/product/1692464080884.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(6, 1, 'public/product/1692464080552.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(7, 2, 'public/product/169247421622.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
+(8, 2, 'public/product/1692474216950.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
+(9, 2, 'public/product/1692474216192.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
+(10, 2, 'public/product/169247421625.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
+(11, 2, 'public/product/1692474216325.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36');
+
 -- --------------------------------------------------------
 
 --
@@ -413,6 +482,14 @@ CREATE TABLE `product_sizes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_sizes`
+--
+
+INSERT INTO `product_sizes` (`id`, `product_id`, `size_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(2, 2, 1, '2023-08-20 03:43:36', '2023-08-20 03:43:36');
 
 -- --------------------------------------------------------
 
@@ -446,6 +523,16 @@ CREATE TABLE `reviews` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `product_id`, `rating`, `review`, `name`, `email`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 'Ut impedit ipsa Na', 'Lawrence Langley', 'kiba@mailinator.com', '2023-08-20 01:08:03', '2023-08-20 01:08:03'),
+(2, 1, 3, 'Quia incidunt vel p', 'Dillon Daugherty', 'fetype@mailinator.com', '2023-08-20 01:15:05', '2023-08-20 01:15:05'),
+(3, 1, 2, 'A quis architecto iu', 'Kellie Stephens', 'nymudyxyh@mailinator.com', '2023-08-20 01:15:28', '2023-08-20 01:15:28'),
+(4, 2, 5, 'Dolor reprehenderit', 'Blake Beck', 'lakalubemy@mailinator.com', '2023-08-20 03:46:10', '2023-08-20 03:46:10');
 
 -- --------------------------------------------------------
 
@@ -574,6 +661,13 @@ CREATE TABLE `sizes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sizes`
+--
+
+INSERT INTO `sizes` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Small', '2023-08-20 00:54:12', '2023-08-20 00:54:12');
+
 -- --------------------------------------------------------
 
 --
@@ -588,6 +682,14 @@ CREATE TABLE `stocks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stocks`
+--
+
+INSERT INTO `stocks` (`id`, `product_id`, `qty`, `type`, `created_at`, `updated_at`) VALUES
+(1, 1, 581, 0, '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
+(2, 2, 716, 0, '2023-08-20 03:43:36', '2023-08-20 03:43:36');
 
 -- --------------------------------------------------------
 
@@ -750,6 +852,12 @@ ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `order_venders`
+--
+ALTER TABLE `order_venders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
@@ -871,13 +979,13 @@ ALTER TABLE `billing_infos`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `coupons`
@@ -895,7 +1003,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favorite_products`
 --
 ALTER TABLE `favorite_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `languages`
@@ -907,7 +1015,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -919,6 +1027,12 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_venders`
+--
+ALTER TABLE `order_venders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -937,25 +1051,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_colors`
 --
 ALTER TABLE `product_colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `product_sizes`
 --
 ALTER TABLE `product_sizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `profiles`
@@ -967,7 +1081,7 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -985,13 +1099,13 @@ ALTER TABLE `shipping_infos`
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
