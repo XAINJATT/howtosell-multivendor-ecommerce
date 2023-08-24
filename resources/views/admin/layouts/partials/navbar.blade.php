@@ -24,23 +24,20 @@
             </li>
             @php
                 $Profile = \Illuminate\Support\Facades\DB::table('users')->where('id', '=', \Illuminate\Support\Facades\Auth::id())->get();
-                $ProfilePic = asset('public/storage/logo/logo.png');
+                $ProfilePic = asset('public/storage/logo/logo.jpg');
                 $Name = $Profile[0]->name;
             @endphp
             <li class="nav-item dropdown nav-profile">
-                <a class="nav-link dropdown-toggle text-decoration-none logo" href="#" role="button"
+                <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="h4 text-uppercase text-primary bg-dark px-2" style="background-color: #3D464D !important">How to</span>
-                    <span class="h4 text-uppercase text-dark bg-primary px-2 ml-n1" style="background-color: #FFD333 !important">Sell?</span>
+                    <img src="{{$ProfilePic}}" alt="profile">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="profileDropdown">
                     <div class="dropdown-header d-flex flex-column align-items-center">
-                        <div class="figure mb-3">
-                        <a class="nav-link dropdown-toggle text-decoration-none logo mt-3" href="#" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="h4 text-uppercase text-primary bg-dark px-2" style="background-color: #3D464D !important">How to</span>
-                            <span class="h4 text-uppercase text-dark bg-primary px-2 ml-n1" style="background-color: #FFD333 !important">Sell?</span>
-                        </a>
+                        <div class="info text-center">
+                            <p class="name font-weight-bold mb-0">{{\Illuminate\Support\Facades\Auth::user()->name}}</p>
+                            <p class="email text-muted mb-3">{{\Illuminate\Support\Facades\Auth::user()->email}}</p>
+                        </div>
                     </div>
                     <div class="dropdown-body">
                         <ul class="profile-nav p-0 pt-3">

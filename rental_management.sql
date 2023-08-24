@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2023 at 06:51 PM
+-- Generation Time: Aug 24, 2023 at 05:27 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.3
 
@@ -109,7 +109,8 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `image`, `link`, `created_at`, `updated_at`) VALUES
-(1, 'Image-20230823-175542.jpg', 'https://howtosell.gw2neverland.com/product-detail/1', '2023-08-24 00:55:43', '2023-08-24 00:56:00');
+(2, 'Image-20230824-182658.jpg', 'https://www.google.com/search?q=translate+english+to+urdu&oq=t&aqs=chrome.1.69i60j69i59j0i131i433i512j69i60l5.1471j0j7&sourceid=chrome&ie=UTF-8', '2023-08-25 01:03:17', '2023-08-25 01:26:58'),
+(3, 'Image-20230824-180542.jpg', 'https://howtosell.gw2neverland.com/', '2023-08-25 01:05:42', '2023-08-25 01:05:42');
 
 -- --------------------------------------------------------
 
@@ -1096,7 +1097,7 @@ ALTER TABLE `colors`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `coupons`

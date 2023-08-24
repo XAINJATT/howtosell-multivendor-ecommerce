@@ -35,7 +35,7 @@
                             </div>
                             <div class="d-flex align-items-center flex-wrap text-nowrap mr-1">
                                 <button type="button" class="btn btn-primary mb-2 mb-md-0"
-                                        data-toggle="tooltip" title="Add City"
+                                        data-toggle="tooltip" title="Add Company"
                                         onclick="window.location.href='{{route('company.add')}}';">
                                     <i class="fa fa-plus mr-1"></i>Add Company
                                 </button>

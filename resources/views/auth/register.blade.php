@@ -75,11 +75,11 @@
                 <div class="logo text-center mb-2">
                     <div class="logo text-center  mb-4">
                         <a href="" class="text-decoration-none logo">
-                            <span class="h1 text-uppercase text-primary px-5" style="font-size: 5.0rem !important;">Welcome</span>
+                            <span class="h1 text-uppercase text-primary px-5" style="font-size: 5.0rem !important; color: #3D464D !important">Welcome</span>
                         </a>
                     </div>
                 </div>
-                <h5 class="text-muted font-weight-normal mb-4 text-center color-custom-primary primaryColor">Log in to your account</h5>
+                <h5 class="text-muted font-weight-normal mb-4 text-center color-custom-primary primaryColor"  style="color: #3D464D !important">Register to your account</h5>
                 <div class="row">
                     <div class="col-md-12">
                         @if(session()->has('message'))

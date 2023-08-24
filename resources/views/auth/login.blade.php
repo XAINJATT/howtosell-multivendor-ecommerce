@@ -74,10 +74,10 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4 m-auto py-5">
                 <div class="logo text-center  mb-4">
                     <a href="" class="text-decoration-none logo">
-                        <span class="h1 text-uppercase text-primary px-5" style="font-size: 5.0rem !important;">Welcome</span>
+                        <span class="h1 text-uppercase text-primary px-5" style="font-size: 5.0rem !important; color: #3D464D !important">Welcome</span>
                     </a>
                 </div>
-                <h5 class="text-muted font-weight-normal mb-4 text-center color-custom-primary primaryColor">Log in to your account</h5>
+                <h5 class="text-muted font-weight-normal mb-4 text-center color-custom-primary primaryColor" style="color: #3D464D !important">Log in to your account</h5>
                 <div class="row">
                     <div class="col-md-12">
                         @if(session()->has('message'))
@@ -119,7 +119,7 @@
                             </div>
                         </div>
                         <div class="input-group remember_filed">
-                            <label class="form-check-label color-custom-primary primaryColor" for="remember">
+                            <label class="form-check-label color-custom-primary primaryColor" for="remember" style="color: #3D464D !important">
                                 <input class="form-check-input" type="checkbox" name="remember"
                                        id="remember" {{ old('remember') ? 'checked' :'' }}>
                                 {{ __('Remember Me') }}
@@ -134,7 +134,7 @@
                 </form>
                 <p class="text-center forget_button color-custom-primary">
                     @if (Route::has('password.request'))
-                        <a class="btn btn-link primaryColor" href="{{ route('password.request') }}">
+                        <a class="btn btn-link primaryColor" href="{{ route('password.request') }}"  style="color: #3D464D !important">
                             {{ __('Forgot Your Password?') }}
                         </a>
                     @endif

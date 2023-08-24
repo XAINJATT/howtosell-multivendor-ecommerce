@@ -45,7 +45,7 @@
                   </p>
                   <a
                     class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                    href=""
+                    href="{{route('products')}}"
                     >Shop Now</a
                   >
                 </div>
@@ -75,7 +75,7 @@
                   </p>
                   <a
                     class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                    href=""
+                    href="{{route('products')}}"
                     >Shop Now</a
                   >
                 </div>
@@ -105,7 +105,7 @@
                   </p>
                   <a
                     class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                    href=""
+                    href="{{route('products')}}"
                     >Shop Now</a
                   >
                 </div>
