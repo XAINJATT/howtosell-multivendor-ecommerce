@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\SiteHelper;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
@@ -46,6 +48,21 @@ class RegisterController extends Controller
             $role = Role::where('name', '=', 'Customer')->first();
         }else{
             $role = Role::where('name', '=', 'Vendor')->first();
+        }
+
+        if ($user) {
+            try {
+                $email = $data['email'];
+                $data = [
+                    'name' => $data['name'],
+                ];
+                Mail::send('email.welcome', $data, function ($message) use ($email) {
+                    $message->to($email, env('MAIL_FROM_NAME'))->subject('Welcome How to sell');
+                    $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+                });
+            } catch (\Exception $e) {
+                return response()->json($e->getMessage(), SiteHelper::$error_status);
+            }
         }
         $user->assignRole($role->id);
         return  $user;
