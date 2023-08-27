@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController; // Adjust the namespace for FrontendController
 use App\Http\Controllers\Auth\RegisterController;
+use App\Models\User;
+use App\Notifications\WelcomeEmailNotification;
+use Illuminate\Support\Facades\Notification;
 
 //Command Routes
 Route::get('clear-cache', function () {
@@ -118,7 +121,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('category/update', '\App\Http\Controllers\Admin\CategoryController@update')->name('category.update');
         Route::post('category/delete', '\App\Http\Controllers\Admin\CategoryController@delete')->name('category.delete');
         Route::post('category/CheckForDuplicateCompany', '\App\Http\Controllers\Admin\CategoryController@CheckForDuplicateCategory')->name('category.CheckForDuplicateCategory');
-        
+
         // Coupon
         Route::get('coupon', '\App\Http\Controllers\Admin\CouponController@index')->name('coupon');
         Route::get('coupon/add', '\App\Http\Controllers\Admin\CouponController@add')->name('coupon.add');
@@ -167,3 +170,17 @@ Route::post('review/create', 'App\Http\Controllers\Frontend\ReviewController@cre
 
 //});
 
+Route::get('sendMail',function(){
+    try {
+        $user = User::where('id', 2)->first();
+        // dd($user);
+        // $user->notify(new WelcomeEmailNotification());
+        Notification::sendNow($user, new WelcomeEmailNotification());
+
+
+    } catch (Exception $e) {
+        dd($e);
+    }
+
+    dd('reach down');
+});
