@@ -40,18 +40,6 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        // try {
-        //     $user = User::where('id', 2)->first();
-        //     // dd($user);
-        //     // $user->notify(new WelcomeEmailNotification());
-        //     Notification::sendNow($user, new WelcomeEmailNotification());
-
-
-        // } catch (Exception $e) {
-        //     dd($e);
-        // }
-
-        // dd('reach down');
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -64,22 +52,8 @@ class RegisterController extends Controller
         } else {
             $role = Role::where('name', '=', 'Vendor')->first();
         }
-        // $user->notify(new WelcomeEmailNotification());
         Notification::sendNow($user, new WelcomeEmailNotification());
 
-        // try {
-        // $email = $data['email'];
-        // $data = [
-        //     'name' => $data['name'],
-        // ];
-        // Mail::send('email.welcome', $data, function ($message) use ($email) {
-        //     $message->to($email, env('MAIL_FROM_NAME'))->subject('Welcome How to sell');
-        //     $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-        // });
-        // } catch (\Exception $e) {
-        //     dd($e);
-        //     return response()->json($e->getMessage(), SiteHelper::$error_status);
-        // }
         $user->assignRole($role->id);
         return  $user;
     }
