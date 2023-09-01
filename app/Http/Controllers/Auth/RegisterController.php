@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Helpers\SiteHelper;
+use App\Mail\WelcomeMail;
+use App\Models\EmailTemplate;
 use App\Notifications\WelcomeEmailNotification;
 use Exception;
 use Illuminate\Support\Facades\Mail;
@@ -52,8 +54,16 @@ class RegisterController extends Controller
         } else {
             $role = Role::where('name', '=', 'Vendor')->first();
         }
-        Notification::sendNow($user, new WelcomeEmailNotification());
+        // Notification::sendNow($user, new WelcomeEmailNotification());
+        
+        $mail_template = EmailTemplate::where('id', 1)->first();
 
+        $mailData = [
+            'content' => $mail_template->content,
+        ];
+         
+        Mail::to($data['email'])->send(new WelcomeMail($mailData));
+           
         $user->assignRole($role->id);
         return  $user;
     }

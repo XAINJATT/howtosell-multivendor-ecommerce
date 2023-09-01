@@ -194,6 +194,23 @@
                 </li>
                 @endif
             @endcan
+            @can('setting')
+                @if($page == "setting")
+                <li class="nav-item active">
+                    <a href="{{url('admin/setting')}}" class="nav-link">
+                        <i class="link-icon" data-feather="tool"></i>
+                        <span class="link-title">Settings</span>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a href="{{url('admin/setting')}}" class="nav-link">
+                        <i class="link-icon" data-feather="tool"></i>
+                        <span class="link-title">Setting</span>
+                    </a>
+                </li>
+                @endif
+            @endcan
         </ul>
     </div>
 </nav>

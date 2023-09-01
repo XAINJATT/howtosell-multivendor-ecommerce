@@ -28,6 +28,10 @@ Route::get('clear-cache', function () {
 //Auth::routes();
 Auth::routes(['verify' => true]);
 
+Route::get('/tinymce', function () {
+    return view('admin/setting/index');
+});
+
 Route::get('/', [FrontendController::class, 'index']);
 Route::post('change-locale', [FrontendController::class,'changeLocale'])->name('changeLocale');
 
@@ -146,6 +150,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('update-personal-details', '\App\Http\Controllers\UserController@UpdatePersonalDetails');
         Route::post('update-account-security', '\App\Http\Controllers\UserController@UpdateAccountSecurity');
 
+        // Setting
+        Route::get('setting', '\App\Http\Controllers\Admin\EmailTemplateController@index')->name('setting');
+        Route::post('setting/update', '\App\Http\Controllers\Admin\EmailTemplateController@update')->name('setting.update');
+        Route::get('setting/stripe_key', '\App\Http\Controllers\Admin\EmailTemplateController@stripeKey')->name('setting.stripe_key');
 
         Route::post('withdrawal-funds', [OrderController::class, 'WithdrawalFunds'])->name('admin.WithdrawalFunds');
     });
