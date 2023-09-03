@@ -38,6 +38,7 @@
         MakeSizeTable();
         MakeCompanyTable();
         MakeLanguageTable();
+        MakeWebLangDetailTable();
     });
 
     function SetDatePicker(Id, Today = '', Start = '', End = '') {
@@ -396,6 +397,41 @@
         let id = e.split('||')[1];
         $("#deleteLanguageId").val(id);
         $("#deleteLanguageModal").modal('toggle');
+    }
+    // LANGUAGE - END
+
+        // LANGUAGE - START
+        function MakeWebLangDetailTable() {
+        if ($("#WebLangDetail_table").length) {
+            $("#WebLangDetail_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('website_extra_localization.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'name'},
+                    {data: 'detail'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteWebLangDetail(e){
+        let id = e.split('||')[1];
+        $("#deleteWebLangDetailId").val(id);
+        $("#deleteWebLangDetailModal").modal('toggle');
     }
     // LANGUAGE - END
 

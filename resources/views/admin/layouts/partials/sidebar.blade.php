@@ -177,6 +177,23 @@
                 </li>
                 @endif
             @endcan
+            @can('set_website_language')
+                @if($page == "website_extra_localization")
+                <li class="nav-item active">
+                    <a href="{{url('admin/website_extra_localization')}}" class="nav-link">
+                        <i class="link-icon" data-feather="aperture"></i>
+                        <span class="link-title">Set website Languages</span>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a href="{{url('admin/website_extra_localization')}}" class="nav-link">
+                        <i class="link-icon" data-feather="aperture"></i>
+                        <span class="link-title">Set website Language</span>
+                    </a>
+                </li>
+                @endif
+            @endcan
             @can('color')
                 @if($page == "color")
                 <li class="nav-item active">

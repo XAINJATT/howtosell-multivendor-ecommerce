@@ -164,6 +164,15 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('language/update', '\App\Http\Controllers\Admin\LanguageController@update')->name('language.update');
         Route::post('language/delete', '\App\Http\Controllers\Admin\LanguageController@delete')->name('language.delete');
 
+        // Language
+        Route::get('website_extra_localization', '\App\Http\Controllers\Admin\WebLangDetailController@index')->name('website_extra_localization');
+        Route::get('website_extra_localization/add', '\App\Http\Controllers\Admin\WebLangDetailController@add')->name('website_extra_localization.add');
+        Route::post('website_extra_localization/store', '\App\Http\Controllers\Admin\WebLangDetailController@store')->name('website_extra_localization.store');
+        Route::post('website_extra_localization/load', '\App\Http\Controllers\Admin\WebLangDetailController@load')->name('website_extra_localization.all');
+        Route::get('website_extra_localization/edit/{id}', '\App\Http\Controllers\Admin\WebLangDetailController@edit')->name('website_extra_localization.edit');
+        Route::post('website_extra_localization/update', '\App\Http\Controllers\Admin\WebLangDetailController@update')->name('website_extra_localization.update');
+        Route::post('website_extra_localization/delete', '\App\Http\Controllers\Admin\WebLangDetailController@delete')->name('website_extra_localization.delete');
+
         Route::post('withdrawal-funds', [OrderController::class, 'WithdrawalFunds'])->name('admin.WithdrawalFunds');
     });
 });

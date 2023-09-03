@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2023 at 05:27 PM
+-- Generation Time: Sep 03, 2023 at 04:20 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.1.3
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rental_management`
+-- Database: `how_to_sell`
 --
 
 -- --------------------------------------------------------
@@ -66,8 +66,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'Josiah Velez', 'josiah-velez', 'Image-20230819-175350.jpg', '2023-08-20 00:53:50', '2023-08-23 05:13:30', NULL),
-(2, NULL, 'Tyrone Nichols', 'tyrone-nichols', 'Image-20230823-184606.jpg', '2023-08-24 01:46:06', '2023-08-24 01:46:42', NULL);
+(1, NULL, 'Curran Mills', 'curran-mills', 'Image-20230903-143703.jpg', '2023-09-03 21:37:03', '2023-09-03 21:37:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -87,8 +86,7 @@ CREATE TABLE `colors` (
 --
 
 INSERT INTO `colors` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Black', '2023-08-20 00:54:00', '2023-08-20 00:54:00'),
-(2, 'Blue', '2023-08-22 03:23:27', '2023-08-22 03:23:27');
+(1, 'Red', '2023-09-03 21:37:14', '2023-09-03 21:37:14');
 
 -- --------------------------------------------------------
 
@@ -104,14 +102,6 @@ CREATE TABLE `companies` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `companies`
---
-
-INSERT INTO `companies` (`id`, `image`, `link`, `created_at`, `updated_at`) VALUES
-(2, 'Image-20230824-182658.jpg', 'https://www.google.com/search?q=translate+english+to+urdu&oq=t&aqs=chrome.1.69i60j69i59j0i131i433i512j69i60l5.1471j0j7&sourceid=chrome&ie=UTF-8', '2023-08-25 01:03:17', '2023-08-25 01:26:58'),
-(3, 'Image-20230824-180542.jpg', 'https://howtosell.gw2neverland.com/', '2023-08-25 01:05:42', '2023-08-25 01:05:42');
-
 -- --------------------------------------------------------
 
 --
@@ -124,6 +114,20 @@ CREATE TABLE `coupons` (
   `discount_amount` double DEFAULT NULL,
   `start_date` varchar(255) DEFAULT NULL,
   `end_date` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `email_templates`
+--
+
+CREATE TABLE `email_templates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `content` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -163,7 +167,7 @@ CREATE TABLE `favorite_products` (
 --
 
 INSERT INTO `favorite_products` (`id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '2023-08-20 03:45:44', '2023-08-20 03:45:44');
+(1, 1, 1, '2023-09-03 21:37:55', '2023-09-03 21:37:55');
 
 -- --------------------------------------------------------
 
@@ -179,6 +183,13 @@ CREATE TABLE `languages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `languages`
+--
+
+INSERT INTO `languages` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'Urdu', 'urdu', 'active', '2023-09-03 20:55:58', '2023-09-03 20:56:09');
 
 -- --------------------------------------------------------
 
@@ -202,6 +213,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (5, '2023_05_12_175947_create_categories_table', 1),
+(6, '2023_05_16_180653_create_products_table', 1),
 (7, '2023_05_23_183013_create_product_images_table', 1),
 (8, '2023_05_26_164330_create_user_profiles_table', 1),
 (9, '2023_05_26_164946_create_user_locations_table', 1),
@@ -221,11 +233,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (23, '2023_08_13_095324_create_stocks_table', 1),
 (24, '2023_08_15_202759_create_reviews_table', 1),
 (25, '2023_08_16_201933_create_favorite_products_table', 1),
-(26, '2023_08_20_191551_create_order_venders_table', 2),
-(28, '2023_08_22_194224_create_companies_table', 3),
-(29, '2023_05_16_180653_create_products_table', 4),
-(30, '2023_08_23_155106_create_wallets_table', 5),
-(31, '2023_08_23_161255_create_wallet_transactions_table', 5);
+(26, '2023_08_20_191551_create_order_venders_table', 1),
+(27, '2023_08_22_194224_create_companies_table', 1),
+(28, '2023_08_23_155106_create_wallets_table', 1),
+(29, '2023_08_23_161255_create_wallet_transactions_table', 1),
+(30, '2023_08_30_180904_create_email_templates_table', 1),
+(31, '2023_08_30_194139_create_settings_table', 1),
+(32, '2023_09_03_133322_create_web_language_details_table', 1);
 
 -- --------------------------------------------------------
 
@@ -256,9 +270,7 @@ CREATE TABLE `model_has_roles` (
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 1),
-(2, 'App\\Models\\User', 3),
-(3, 'App\\Models\\User', 4);
+(1, 'App\\Models\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -269,6 +281,7 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `vendor_id` bigint(20) UNSIGNED DEFAULT NULL,
   `delivery_method_id` bigint(20) UNSIGNED DEFAULT NULL,
   `shipping_info_id` bigint(20) UNSIGNED DEFAULT NULL,
   `billing_info_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -297,7 +310,9 @@ CREATE TABLE `orders` (
 CREATE TABLE `order_items` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `order_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `product_id` varchar(255) DEFAULT NULL,
+  `product_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `size_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `color_id` bigint(20) UNSIGNED DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `product_price` double DEFAULT NULL,
   `quantity` double DEFAULT NULL,
@@ -354,46 +369,48 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'dashboard', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(2, 'product', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(3, 'category', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(4, 'coupon', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(5, 'role', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(6, 'order', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(7, 'permission', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(8, 'stock', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(9, 'color', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(10, 'size', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(11, 'product-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(12, 'product-add', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(13, 'product-edit', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(14, 'product-delete', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(15, 'category-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(16, 'category-add', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(17, 'category-edit', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(18, 'category-delete', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(19, 'coupon-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(20, 'coupon-add', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(21, 'coupon-edit', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(22, 'coupon-delete', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(23, 'role-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(24, 'role-edit', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(25, 'role-delete', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(26, 'order-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(27, 'permission-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(28, 'permission-add', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(29, 'permission-edit', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(30, 'permission-delete', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(31, 'stock-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(32, 'color-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(33, 'color-add', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(34, 'color-edit', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(35, 'color-delete', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(36, 'size-list', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(37, 'size-add', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(38, 'size-edit', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(39, 'size-delete', 'web', '2023-08-19 04:05:03', '2023-08-19 04:05:03'),
-(40, 'company', 'web', '2023-08-23 03:35:42', '2023-08-23 03:36:10');
+(1, 'dashboard', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(2, 'product', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(3, 'category', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(4, 'coupon', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(5, 'role', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(6, 'order', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(7, 'permission', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(8, 'stock', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(9, 'language', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(10, 'color', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(11, 'size', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(12, 'setting', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(13, 'product-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(14, 'product-add', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(15, 'product-edit', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(16, 'product-delete', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(17, 'category-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(18, 'category-add', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(19, 'category-edit', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(20, 'category-delete', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(21, 'coupon-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(22, 'coupon-add', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(23, 'coupon-edit', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(24, 'coupon-delete', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(25, 'role-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(26, 'role-edit', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(27, 'role-delete', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(28, 'order-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(29, 'permission-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(30, 'permission-add', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(31, 'permission-edit', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(32, 'permission-delete', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(33, 'stock-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(34, 'color-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(35, 'color-add', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(36, 'color-edit', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(37, 'color-delete', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(38, 'size-list', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(39, 'size-add', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(40, 'size-edit', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(41, 'size-delete', 'web', '2023-09-03 20:51:55', '2023-09-03 20:51:55'),
+(42, 'set_website_language', 'web', '2023-09-03 21:21:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -442,8 +459,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `price`, `discounted_price`, `product_image`, `short_description`, `long_description`, `soh`, `language_id`, `added_by`, `country_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Leslie Wagner', 'leslie-wagner', 357, 681, 'Image-20230823-180950.jpg', 'Est voluptates alias', 'Elit labore laudant', 96, NULL, 1, NULL, '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(2, 1, 'Xandra Mclaughlin', 'xandra-mclaughlin', 866, 191, 'Image-20230823-181345.jpg', 'Quibusdam sed ullamc', 'Id consequatur moll', 204, NULL, 1, NULL, '2023-08-24 01:12:14', '2023-08-24 01:13:45');
+(1, 1, 'Charlotte French', 'charlotte-french', 850, 616, 'Image-20230903-143748.jpg', 'Laboris autem volupt', 'Voluptatem pariatur', 639, NULL, 1, NULL, '2023-09-03 21:37:48', '2023-09-03 21:37:48');
 
 -- --------------------------------------------------------
 
@@ -464,11 +480,7 @@ CREATE TABLE `product_colors` (
 --
 
 INSERT INTO `product_colors` (`id`, `product_id`, `color_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(3, 3, 2, '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(4, 1, 1, '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(6, 2, 1, '2023-08-24 01:13:45', '2023-08-24 01:13:45'),
-(7, 2, 2, '2023-08-24 01:13:45', '2023-08-24 01:13:45');
+(1, 1, 1, '2023-09-03 21:37:48', '2023-09-03 21:37:48');
 
 -- --------------------------------------------------------
 
@@ -489,33 +501,11 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`, `updated_at`) VALUES
-(1, 1, 'public/product/1692464080299.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(2, 1, 'public/product/169246408035.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(3, 1, 'public/product/1692464080220.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(4, 1, 'public/product/1692464080443.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(5, 1, 'public/product/1692464080884.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(6, 1, 'public/product/1692464080552.jpg', '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(7, 2, 'public/product/169247421622.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
-(8, 2, 'public/product/1692474216950.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
-(9, 2, 'public/product/1692474216192.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
-(10, 2, 'public/product/169247421625.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
-(11, 2, 'public/product/1692474216325.jpg', '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
-(12, 3, 'public/product/1692738845120.jpg', '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(13, 3, 'public/product/1692738845187.jfif', '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(14, 3, 'public/product/1692738845478.jfif', '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(15, 3, 'public/product/1692738845507.jfif', '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(16, 3, 'public/product/1692738845643.jfif', '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(17, 1, 'public/product/1692810590791.jpg', '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(18, 1, 'public/product/1692810590942.jpg', '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(19, 1, 'public/product/1692810590430.jpg', '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(20, 1, 'public/product/1692810590711.jpg', '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(21, 1, 'public/product/1692810590125.jpg', '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(22, 1, 'public/product/1692810590813.jpg', '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(23, 2, 'public/product/1692810734914.jpg', '2023-08-24 01:12:14', '2023-08-24 01:12:14'),
-(24, 2, 'public/product/1692810734270.jpg', '2023-08-24 01:12:14', '2023-08-24 01:12:14'),
-(25, 2, 'public/product/1692810734763.jpg', '2023-08-24 01:12:14', '2023-08-24 01:12:14'),
-(26, 2, 'public/product/1692810734902.jpg', '2023-08-24 01:12:14', '2023-08-24 01:12:14'),
-(27, 2, 'public/product/1692810734529.jfif', '2023-08-24 01:12:14', '2023-08-24 01:12:14');
+(1, 1, 'public/product/1693748268874.jpg', '2023-09-03 21:37:48', '2023-09-03 21:37:48'),
+(2, 1, 'public/product/1693748268269.jpg', '2023-09-03 21:37:48', '2023-09-03 21:37:48'),
+(3, 1, 'public/product/1693748268518.jpg', '2023-09-03 21:37:48', '2023-09-03 21:37:48'),
+(4, 1, 'public/product/169374826820.jpg', '2023-09-03 21:37:48', '2023-09-03 21:37:48'),
+(5, 1, 'public/product/1693748268668.jpg', '2023-09-03 21:37:48', '2023-09-03 21:37:48');
 
 -- --------------------------------------------------------
 
@@ -536,11 +526,7 @@ CREATE TABLE `product_sizes` (
 --
 
 INSERT INTO `product_sizes` (`id`, `product_id`, `size_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(3, 3, 1, '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(4, 1, 1, '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(6, 2, 1, '2023-08-24 01:13:45', '2023-08-24 01:13:45'),
-(7, 2, 2, '2023-08-24 01:13:45', '2023-08-24 01:13:45');
+(1, 1, 1, '2023-09-03 21:37:48', '2023-09-03 21:37:48');
 
 -- --------------------------------------------------------
 
@@ -574,17 +560,6 @@ CREATE TABLE `reviews` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `reviews`
---
-
-INSERT INTO `reviews` (`id`, `product_id`, `rating`, `review`, `name`, `email`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, 'Ut impedit ipsa Na', 'Lawrence Langley', 'kiba@mailinator.com', '2023-08-20 01:08:03', '2023-08-20 01:08:03'),
-(2, 1, 3, 'Quia incidunt vel p', 'Dillon Daugherty', 'fetype@mailinator.com', '2023-08-20 01:15:05', '2023-08-20 01:15:05'),
-(3, 1, 2, 'A quis architecto iu', 'Kellie Stephens', 'nymudyxyh@mailinator.com', '2023-08-20 01:15:28', '2023-08-20 01:15:28'),
-(4, 2, 5, 'Dolor reprehenderit', 'Blake Beck', 'lakalubemy@mailinator.com', '2023-08-20 03:46:10', '2023-08-20 03:46:10'),
-(5, 2, 4, 'Consequatur ut Nam d', 'Fulton Lindsay', 'komiduk@mailinator.com', '2023-08-23 04:42:23', '2023-08-23 04:42:23');
 
 -- --------------------------------------------------------
 
@@ -626,27 +601,15 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
-(1, 2),
-(1, 3),
 (2, 1),
-(2, 2),
-(2, 3),
 (3, 1),
-(3, 2),
-(3, 3),
 (4, 1),
 (5, 1),
 (6, 1),
-(6, 2),
-(6, 3),
 (7, 1),
 (8, 1),
-(8, 2),
-(8, 3),
 (9, 1),
-(9, 2),
 (10, 1),
-(10, 2),
 (11, 1),
 (12, 1),
 (13, 1),
@@ -676,7 +639,23 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (37, 1),
 (38, 1),
 (39, 1),
-(40, 1);
+(40, 1),
+(41, 1),
+(42, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `STRIPE_PUBLIC_KEY` varchar(255) NOT NULL,
+  `STRIPE_SECRET_KEY` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -719,8 +698,7 @@ CREATE TABLE `sizes` (
 --
 
 INSERT INTO `sizes` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Small', '2023-08-20 00:54:12', '2023-08-20 00:54:12'),
-(2, 'Large', '2023-08-22 03:23:38', '2023-08-22 03:23:38');
+(1, 'Small', '2023-09-03 21:37:23', '2023-09-03 21:37:23');
 
 -- --------------------------------------------------------
 
@@ -742,11 +720,7 @@ CREATE TABLE `stocks` (
 --
 
 INSERT INTO `stocks` (`id`, `product_id`, `qty`, `type`, `created_at`, `updated_at`) VALUES
-(1, 1, 581, 0, '2023-08-20 00:54:40', '2023-08-20 00:54:40'),
-(2, 2, 716, 0, '2023-08-20 03:43:36', '2023-08-20 03:43:36'),
-(3, 3, 62, 0, '2023-08-23 05:14:05', '2023-08-23 05:14:05'),
-(4, 1, 96, 0, '2023-08-24 01:09:50', '2023-08-24 01:09:50'),
-(5, 2, 204, 0, '2023-08-24 01:12:14', '2023-08-24 01:12:14');
+(1, 1, 639, 0, '2023-09-03 21:37:48', '2023-09-03 21:37:48');
 
 -- --------------------------------------------------------
 
@@ -772,9 +746,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `status`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$Jf.B/ckcK0vFDa17ma/Tx.NdUTP245Gn.2G8javRPASpA7FMnO/Ja', 1, NULL, '2023-08-19 04:03:50', '2023-08-19 04:03:50', NULL),
-(3, 'Rehan', 'rehan@gmail.com', NULL, '$2y$10$4GVJ9A5GM3v3vgQBQ2gJeO/QiGq6lkEzO2BPvkNm0ODu6BjskwNaW', 1, NULL, '2023-08-19 04:13:46', '2023-08-19 04:13:46', NULL),
-(4, 'Suleman', 'suleman@gmail.com', NULL, '$2y$10$ojBm0gkrCFQLRTtnmgQSQ.H0tN721GY6/RRo4/BshS0LebnJCnMp.', 1, NULL, '2023-08-19 04:14:58', '2023-08-19 04:14:58', NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$QhwwR9ULwdtXrP5vLHMFdOY9k0dLWEEuS/X5P2PkrWzIA5UgBxRSW', 1, NULL, '2023-09-03 20:51:55', '2023-09-03 20:51:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -850,6 +822,20 @@ CREATE TABLE `wallet_transactions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `web_language_details`
+--
+
+CREATE TABLE `web_language_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `language_id` bigint(20) UNSIGNED NOT NULL,
+  `detail` longtext NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `web_lang_details`
 --
 
@@ -860,6 +846,13 @@ CREATE TABLE `web_lang_details` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `web_lang_details`
+--
+
+INSERT INTO `web_lang_details` (`id`, `language_id`, `detail`, `created_at`, `updated_at`) VALUES
+(3, 2, '{\"_token\":\"tjAQ8ZXB0tX2NdH4jOAlFVz6Mjg6WYSbUqScvZxa\",\"language\":\"2\",\"f_content\":\"Suscipit ullamco eiu\",\"customerservice\":\"Minus voluptatem Pl\",\"categories\":\"Laboris voluptas ut\",\"qualityproduct\":\"Sit in quod quo libe\",\"freeshipping\":\"Quidem ut ut amet m\",\"14-dayreturn\":\"7\",\"24\\/7support\":\"Laborum cum officiis\",\"recentproduct\":\"In necessitatibus au\",\"filterbyprice\":\"451\",\"filterbycolor\":\"Quidem quia veniam\",\"filterbysize\":\"Qui enim mollitia re\",\"description\":\"Ex officia possimus\",\"reviews\":\"Nihil aut voluptatem\",\"leaveareview\":\"Aut aliquid aliquip\",\"submit\":null}', '2023-09-03 22:08:43', '2023-09-03 22:08:43');
 
 --
 -- Indexes for dumped tables
@@ -893,6 +886,12 @@ ALTER TABLE `companies`
 -- Indexes for table `coupons`
 --
 ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `email_templates`
+--
+ALTER TABLE `email_templates`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1016,6 +1015,13 @@ ALTER TABLE `role_has_permissions`
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `settings_stripe_public_key_unique` (`STRIPE_PUBLIC_KEY`);
+
+--
 -- Indexes for table `shipping_infos`
 --
 ALTER TABLE `shipping_infos`
@@ -1066,6 +1072,12 @@ ALTER TABLE `wallet_transactions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `web_language_details`
+--
+ALTER TABLE `web_language_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `web_lang_details`
 --
 ALTER TABLE `web_lang_details`
@@ -1085,24 +1097,30 @@ ALTER TABLE `billing_infos`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `email_templates`
+--
+ALTER TABLE `email_templates`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1121,13 +1139,13 @@ ALTER TABLE `favorite_products`
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1151,7 +1169,7 @@ ALTER TABLE `order_venders`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1163,25 +1181,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product_colors`
 --
 ALTER TABLE `product_colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product_sizes`
 --
 ALTER TABLE `product_sizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `profiles`
@@ -1193,13 +1211,19 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shipping_infos`
@@ -1211,19 +1235,19 @@ ALTER TABLE `shipping_infos`
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_locations`
@@ -1250,10 +1274,16 @@ ALTER TABLE `wallet_transactions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `web_language_details`
+--
+ALTER TABLE `web_language_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `web_lang_details`
 --
 ALTER TABLE `web_lang_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
