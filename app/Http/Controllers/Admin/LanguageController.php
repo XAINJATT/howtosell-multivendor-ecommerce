@@ -41,11 +41,13 @@ class LanguageController extends Controller
             return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
 
-            // Create a slug from the category name
-            $slug = Str::slug($request['name']);
+        // Get the language name from the request
+        $name = $request['name'];
+        // Get the first two characters of the name in lowercase
+        $slug = strtolower(substr($name, 0, 2));
 
             $Affected = Language::create([
-                'name' => $request['name'],
+                'name' => $name,
                 'slug' => $slug,
                 'created_at' => Carbon::now()
             ]);
@@ -137,11 +139,13 @@ class LanguageController extends Controller
             return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
 
-            // Create a slug from the category name
-            $slug = Str::slug($request['name']);
+            // Get the language name from the request
+            $name = $request['name'];
+            // Get the first two characters of the name in lowercase
+            $slug = strtolower(substr($name, 0, 2));
             $Affected = Language::where('id', $request['id'])
                 ->update([
-                    'name' => $request['name'],
+                    'name' => $name,
                     'slug' => $slug,
                     'updated_at' => Carbon::now()
                 ]);
