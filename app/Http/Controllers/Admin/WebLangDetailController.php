@@ -91,12 +91,11 @@ class WebLangDetailController extends Controller
         $data = array();
         $SrNo = $start + 1;
         foreach ($fetch_data as $row => $item) {
-            $Edit = route('website_extra_localization.edit', array($item->id));
             $sub_array = array();
             $sub_array['id'] = $SrNo;
             $sub_array['name'] = $item->Language->name;
             $sub_array['detail'] = wordwrap($item->detail,30,"<br>\n");
-            $sub_array['action'] = '<a href="' . $Edit . '" class="text-primary fs-5"><i class="fas fa-edit"></i></a><span><i id="delete||' . $item->id . '" onclick="deleteWebLangDetail(this.id);" class="fas fa-trash-alt fs-5 ml-2 text-danger cursor-pointer"></i></span>';
+            $sub_array['action'] = '<span><i id="delete||' . $item->id . '" onclick="deleteWebLangDetail(this.id);" class="fas fa-trash-alt fs-5 ml-2 text-danger cursor-pointer"></i></span>';
             $SrNo++;
             $data[] = $sub_array;
         }
