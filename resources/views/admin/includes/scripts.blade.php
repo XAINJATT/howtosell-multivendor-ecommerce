@@ -37,6 +37,7 @@
         MakeColorTable();
         MakeSizeTable();
         MakeCompanyTable();
+        MakeLanguageTable();
     });
 
     function SetDatePicker(Id, Today = '', Start = '', End = '') {
@@ -363,6 +364,40 @@
         $("#deleteCouponModal").modal('toggle');
     }
     // COUPON - END
+
+    // LANGUAGE - START
+    function MakeLanguageTable() {
+        if ($("#language_table").length) {
+            $("#language_table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "paging": true,
+                "bPaginate": true,
+                "ordering": true,
+                "pageLength": 50,
+                "lengthMenu": [
+                    [50, 100, 200, 400],
+                    ['50', '100', '200', '400']
+                ],
+                "ajax": {
+                    "url": "{{route('language.all')}}",
+                    "type": "POST",
+                },
+                'columns': [
+                    {data: 'id'},
+                    {data: 'name'},
+                    {data: 'action', orderable: false},
+                ],
+            });
+        }
+    }
+
+    function deleteLanguage(e){
+        let id = e.split('||')[1];
+        $("#deleteLanguageId").val(id);
+        $("#deleteLanguageModal").modal('toggle');
+    }
+    // LANGUAGE - END
 
     // COLOR - START
     function MakeColorTable() {

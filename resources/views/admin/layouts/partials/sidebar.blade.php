@@ -160,6 +160,23 @@
                 </li>
                 @endif
             @endcan
+            @can('language')
+                @if($page == "language")
+                <li class="nav-item active">
+                    <a href="{{url('admin/language')}}" class="nav-link">
+                        <i class="link-icon" data-feather="aperture"></i>
+                        <span class="link-title">Languages</span>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a href="{{url('admin/language')}}" class="nav-link">
+                        <i class="link-icon" data-feather="aperture"></i>
+                        <span class="link-title">Language</span>
+                    </a>
+                </li>
+                @endif
+            @endcan
             @can('color')
                 @if($page == "color")
                 <li class="nav-item active">

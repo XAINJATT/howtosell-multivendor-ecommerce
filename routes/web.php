@@ -155,6 +155,15 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('setting/update', '\App\Http\Controllers\Admin\EmailTemplateController@update')->name('setting.update');
         Route::get('setting/stripe_key', '\App\Http\Controllers\Admin\EmailTemplateController@stripeKey')->name('setting.stripe_key');
 
+        // Language
+        Route::get('language', '\App\Http\Controllers\Admin\LanguageController@index')->name('language');
+        Route::get('language/add', '\App\Http\Controllers\Admin\LanguageController@add')->name('language.add');
+        Route::post('language/store', '\App\Http\Controllers\Admin\LanguageController@store')->name('language.store');
+        Route::post('language/load', '\App\Http\Controllers\Admin\LanguageController@load')->name('language.all');
+        Route::get('language/edit/{id}', '\App\Http\Controllers\Admin\LanguageController@edit')->name('language.edit');
+        Route::post('language/update', '\App\Http\Controllers\Admin\LanguageController@update')->name('language.update');
+        Route::post('language/delete', '\App\Http\Controllers\Admin\LanguageController@delete')->name('language.delete');
+
         Route::post('withdrawal-funds', [OrderController::class, 'WithdrawalFunds'])->name('admin.WithdrawalFunds');
     });
 });

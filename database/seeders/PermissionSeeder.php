@@ -64,6 +64,12 @@ class PermissionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'name' => 'language',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'color',
                 'guard_name' => 'web',
                 'created_at' => now(),
@@ -71,6 +77,12 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'size',
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'setting',
                 'guard_name' => 'web',
                 'created_at' => now(),
                 'updated_at' => now(),
