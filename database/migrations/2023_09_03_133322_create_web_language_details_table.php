@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingsTable extends Migration
+class CreateWebLanguageDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('web_language_details', function (Blueprint $table) {
             $table->id();
-            $table->string('STRIPE_PUBLIC_KEY')->unique();
-            $table->text('STRIPE_SECRET_KEY')->nullable();
+            $table->unsignedBigInteger('language_id');
+            $table->longText('detail');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('web_language_details');
     }
 }
