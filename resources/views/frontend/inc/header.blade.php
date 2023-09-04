@@ -27,7 +27,7 @@
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
-                </form>              
+                </form>
             @endauth
             @guest
                 <a href="{{ route('admin.login') }}" class="dropdown-item" type="button">Sign in</a>
@@ -47,12 +47,19 @@
               class="btn btn-sm btn-light dropdown-toggle"
               data-toggle="dropdown"
             >
-              EN
+              {{ strtoupper(app()->getLocale()) }}
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <button class="dropdown-item" type="button">FR</button>
+                  @foreach ($languages as $language)
+                      <form action="{{ route('changeLocale') }}" method="post">
+                          @csrf
+                          <input type="hidden" name="lang" value="{{ $language->slug }}">
+                          <button class="dropdown-item">{{ strtoupper($language->name) }}</button>
+                      </form>
+                  @endforeach
+              {{-- <button class="dropdown-item" type="button">FR</button>
               <button class="dropdown-item" type="button">AR</button>
-              <button class="dropdown-item" type="button">RU</button>
+              <button class="dropdown-item" type="button">RU</button> --}}
             </div>
           </div>
         </div>
@@ -63,7 +70,7 @@
               class="badge text-dark border border-dark rounded-circle"
               style="padding-bottom: 2px"
               >0</span
-            >
+>
           </a>
           <a href="" class="btn px-0 ml-2">
             <i class="fas fa-shopping-cart text-dark"></i>

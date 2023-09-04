@@ -35,3 +35,10 @@ if (!function_exists('WalletTrans')) {
         }
     }
 }
+if (!function_exists('webTranslation')) {
+    function webTranslation($key)
+    {
+        $arr = session()->get('webDet');
+        return $arr->$key;
+    }
+}

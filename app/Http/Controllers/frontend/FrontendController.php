@@ -108,6 +108,7 @@ class FrontendController extends Controller
 
     public function changeLocale(Request $request)
     {
+        // dd($request);
         Session::put('locale', $request->lang);
         return back();
     }

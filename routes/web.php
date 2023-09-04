@@ -35,6 +35,7 @@ Route::get('/tinymce', function () {
 Route::get('/', [FrontendController::class, 'index']);
 Route::post('change-locale', [FrontendController::class,'changeLocale'])->name('changeLocale');
 
+
 // Use named routes for clarity
 Route::get('/admin/login', '\App\Http\Controllers\Auth\LoginController@showLoginForm')->name('admin.login');
 

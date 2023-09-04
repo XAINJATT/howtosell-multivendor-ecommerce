@@ -50,11 +50,11 @@
                                         fill="currentColor"></path>
                                 </svg>
                             </i>
-                            <span class="item-name">Dashboard</span>
+                            <span class="item-name">Dashboard1</span>
                         </a>
                     </li>
 {{--                @endcan--}}
-                @can('icons')
+                {{-- @can('icons') --}}
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#horizontal-menu" role="button"
                             aria-expanded="false" aria-controls="horizontal-menu">
@@ -100,7 +100,7 @@
                                     <span class="item-name"> Icons </span>
                                 </a>
                             </li>
-                            @if(auth()->user()->hasRole('admin'))
+                            @if(auth()->user()->hasRole('Admin'))
                             <li class="nav-item">
                                 <a class="nav-link " href="{{ route('admin.languages.index') }}">
                                     <i class="icon">
@@ -131,10 +131,10 @@
                                         <span class="item-name"> Website Lang Detail </span>
                                     </a>
                                 </li>
-                            @endif
+                            {{-- @endif --}}
                         </ul>
                     </li>
-                @endcan
+                {{-- @endcan --}}
                 @can('user-management')
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#user_manage" role="button"
