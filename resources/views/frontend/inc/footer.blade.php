@@ -1,9 +1,9 @@
 <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
   <div class="row px-xl-5 pt-5">
     <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-      <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+      <h5 class="text-secondary text-uppercase mb-4">{{ webTranslation('getintouch') }}</h5>
       <p class="mb-4">
-        We are embarking on an exciting project to develop a cutting-edge multi-vendor e-commerce website that will revolutionize the online shopping experience.
+        {{ webTranslation('getintouchdescription') }}
       </p>
       <p class="mb-2">
         <i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street,
@@ -17,7 +17,7 @@
       </p>
     </div>
     <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-          <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
+          <h5 class="text-secondary text-uppercase mb-4">{{ webTranslation('quickshop') }}</h5>
           <div class="d-flex flex-column justify-content-start">
             <a class="text-secondary mb-2" href="{{url('/')}}"
               ><i class="fa fa-angle-right mr-2"></i>Home</a
@@ -60,8 +60,8 @@
           </div>
         </div> -->
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-          <h5 class="text-secondary text-uppercase mb-4">Newsletter</h5>
-          <p>The website will allow multiple vendors to register and create their own storefronts, showcasing their products to potential buyers</p>
+          <h5 class="text-secondary text-uppercase mb-4">{{ webTranslation('newsletter') }}</h5>
+          <p>{{ webTranslation('newsletterdescription') }}</p>
           <form action="">
             <div class="input-group">
               <input
@@ -74,7 +74,7 @@
               </div>
             </div>
           </form>
-          <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
+          <h6 class="text-secondary text-uppercase mt-4 mb-3">{{ webTranslation('followus') }}</h6>
           <div class="d-flex">
             <a class="btn btn-primary btn-square mr-2" href="#"
               ><i class="fab fa-twitter"></i

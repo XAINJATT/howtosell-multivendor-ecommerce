@@ -58,7 +58,7 @@
                 <h3 class="font-weight-semi-bold mb-4">${{$product->discounted_price}}</h3>
                 <p class="mb-4">{{$product->short_description}}</p>
                 <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">Sizes:</strong>
+                    <strong class="text-dark mr-3">{{ webTranslation('sizes') }}:</strong>
                     @foreach($product->ProductSizes as $sizes)
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="size-{{$sizes->id}}" value="{{$sizes->id}}" name="size">
@@ -83,7 +83,7 @@
                     {{-- </div>--}}
                 </div>
                 <div class="d-flex mb-4">
-                    <strong class="text-dark mr-3">Colors:</strong>
+                    <strong class="text-dark mr-3">{{ webTranslation('colors') }}:</strong>
                     @foreach($product->ProductColors as $color)
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" class="custom-control-input" id="color-{{$color->id}}" value="{{$color->id}}" name="color">
@@ -110,7 +110,7 @@
                     </button>
                 </div>
                 <div class="d-flex pt-2">
-                    <strong class="text-dark mr-2">Share on:</strong>
+                    <strong class="text-dark mr-2">{{ webTranslation('shareon') }}:</strong>
                     <div class="d-inline-flex">
                         <a class="text-dark px-2" href="">
                             <i class="fab fa-facebook-f"></i>
@@ -133,12 +133,12 @@
         <div class="col">
             <div class="bg-light p-30">
                 <div class="nav nav-tabs mb-4">
-                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ $product->reviews->count() }})</a>
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">{{ webTranslation('description') }}</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">{{ webTranslation('reviews') }} ({{ $product->reviews->count() }})</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
-                        <h4 class="mb-3">Product Description</h4>
+                        <h4 class="mb-3">{{ webTranslation('productdescription') }}</h4>
                         <p>{{$product->long_description}}</p>
                     </div>
                     <div class="tab-pane fade" id="tab-pane-3">
@@ -163,7 +163,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
+                                <h4 class="mb-4">{{ webTranslation('leaveareview') }}</h4>
                                 <small>Your email address will not be published. Required fields are marked
                                     *</small>
 

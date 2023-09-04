@@ -28,11 +28,11 @@ class UpdateLocale
 
         App::setLocale($locale);
         $lang = Language::where('slug',$locale)->first();
-        // $webDetail = WebLanguageDetail::where('language_id',$lang->id)->first();
-        // if (!$webDetail){
-        //     $webDetail = WebLanguageDetail::where('language_id',1)->first();
-        // }
-        // Session::put('webDet',json_decode($webDetail->detail));
+        $webDetail = WebLanguageDetail::where('language_id',$lang->id)->first();
+        if (!$webDetail){
+            $webDetail = WebLanguageDetail::where('language_id',1)->first();
+        }
+        Session::put('webDet',json_decode($webDetail->detail));
         return $next($request);
     }
 }

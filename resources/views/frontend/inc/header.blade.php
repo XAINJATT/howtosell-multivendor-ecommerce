@@ -115,7 +115,7 @@
     </form>
       </div>
       <div class="col-lg-4 col-6 text-right">
-        <p class="m-0">Customer Service</p>
+        <p class="m-0">{{ webTranslation('customerservice') }}</p>
         <h5 class="m-0">+012 345 6789</h5>
       </div>
     </div>
@@ -133,7 +133,7 @@
           style="height: 65px; padding: 0 30px"
         >
           <h6 class="text-dark m-0">
-            <i class="fa fa-bars mr-2"></i>Categories
+            <i class="fa fa-bars mr-2"></i>{{ webTranslation('categories') }}
           </h6>
           <i class="fa fa-angle-down text-dark"></i>
         </a>
@@ -186,8 +186,8 @@
             id="navbarCollapse"
           >
             <div class="navbar-nav mr-auto py-0">
-              <a href="{{url('/')}}" class="nav-item nav-link active">Home</a>
-              <a href="{{url('/products')}}" class="nav-item nav-link">Shop</a>
+              <a href="{{url('/')}}" class="nav-item nav-link active">{{ webTranslation('home') }}</a>
+              <a href="{{url('/products')}}" class="nav-item nav-link">{{ webTranslation('shop') }}</a>
 {{--              <div class="nav-item dropdown">--}}
 {{--                <a--}}
 {{--                  href="#"--}}

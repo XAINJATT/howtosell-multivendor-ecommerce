@@ -8,7 +8,7 @@ use App\Helpers\SiteHelper;
 use App\Models\Language;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Models\WebLangDetail;
+use App\Models\WebLanguageDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,7 +22,7 @@ class WebLangDetailController extends Controller
     public function index()
     {
         $page = "website_extra_localization";
-        $webDetails = WebLangDetail::with(['Language'])->get();
+        $webDetails = WebLanguageDetail::with(['Language'])->get();
         return view('admin.website_extra_localization.index', compact('page', 'webDetails'));
     }
 
@@ -36,12 +36,12 @@ class WebLangDetailController extends Controller
     public function store(Request $request)
     {
         $det = json_encode($request->all());
-        $Affected = WebLangDetail::create([
+        $Affected = WebLanguageDetail::create([
             'language_id' => $request->language,
             'detail' => $det
         ]);
         if ($Affected) {
-            return redirect()->route('website_extra_localization')->with('success-message', 'WebLangDetail added successfully');
+            return redirect()->route('website_extra_localization')->with('success-message', 'WebLanguageDetail added successfully');
         } else {
             return redirect()->route('website_extra_localization')->with('error-message', 'An unhandled error occurred');
         }
@@ -61,17 +61,17 @@ class WebLangDetailController extends Controller
         $recordsTotal = null;
         $recordsFiltered = null;
         if ($searchTerm == '') {
-            $fetch_data = WebLangDetail::with(['Language'])
+            $fetch_data = WebLanguageDetail::with(['Language'])
                 ->orderBy($columnName, $columnSortOrder)
                 ->offset($start)
                 ->limit($limit)
                 ->get();
             $recordsTotal = sizeof($fetch_data);
-            $recordsFiltered = WebLangDetail::with(['Language'])
+            $recordsFiltered = WebLanguageDetail::with(['Language'])
                 ->orderBy($columnName, $columnSortOrder)
                 ->count();
         } else {
-            $fetch_data = WebLangDetail::with(['Language'])
+            $fetch_data = WebLanguageDetail::with(['Language'])
                 ->where(function ($query) use ($searchTerm) {
                     $query->orWhere('detail', 'LIKE', '%' . $searchTerm . '%');
                 })
@@ -80,7 +80,7 @@ class WebLangDetailController extends Controller
                 ->limit($limit)
                 ->get();
             $recordsTotal = sizeof($fetch_data);
-            $recordsFiltered = WebLangDetail::with(['Language'])
+            $recordsFiltered = WebLanguageDetail::with(['Language'])
                 ->where(function ($query) use ($searchTerm) {
                     $query->orWhere('detail', 'LIKE', '%' . $searchTerm . '%');
                 })
@@ -95,7 +95,7 @@ class WebLangDetailController extends Controller
             $sub_array['id'] = $SrNo;
             $sub_array['name'] = $item->Language->name;
             $sub_array['detail'] = wordwrap($item->detail,30,"<br>\n");
-            $sub_array['action'] = '<span><i id="delete||' . $item->id . '" onclick="deleteWebLangDetail(this.id);" class="fas fa-trash-alt fs-5 ml-2 text-danger cursor-pointer"></i></span>';
+            $sub_array['action'] = '<span><i id="delete||' . $item->id . '" onclick="deleteWebLanguageDetail(this.id);" class="fas fa-trash-alt fs-5 ml-2 text-danger cursor-pointer"></i></span>';
             $SrNo++;
             $data[] = $sub_array;
         }
@@ -113,8 +113,8 @@ class WebLangDetailController extends Controller
     public function edit($id)
     {
         $page = 'edit';
-        $color = WebLangDetail::where('id', $id)->First();
-        $WebsiteExtraLocalizations = WebLangDetail::all();
+        $color = WebLanguageDetail::where('id', $id)->First();
+        $WebsiteExtraLocalizations = WebLanguageDetail::all();
         return view('admin.website_extra_localization.edit', compact('page', 'color', 'WebsiteExtraLocalizations'));
     }
 
@@ -126,13 +126,13 @@ class WebLangDetailController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors())->withInput();
         } else {
-            $Affected = WebLangDetail::where('id', $request['id'])
+            $Affected = WebLanguageDetail::where('id', $request['id'])
                 ->update([
                     'name' => $request['name'],
                     'updated_at' => Carbon::now()
                 ]);
             if ($Affected) {
-                return redirect()->route('website_extra_localization')->with('success-message', 'WebLangDetail updated successfully');
+                return redirect()->route('website_extra_localization')->with('success-message', 'WebLanguageDetail updated successfully');
             } else {
                 return redirect()->route('website_extra_localization')->with('error-message', 'An unhandled error occurred');
             }
@@ -141,9 +141,9 @@ class WebLangDetailController extends Controller
 
     public function delete(Request $request)
     {
-        $Affected = WebLangDetail::where('id', $request['id'])->delete();
+        $Affected = WebLanguageDetail::where('id', $request['id'])->delete();
         if ($Affected) {
-            return redirect()->route('website_extra_localization')->with('success-message', 'WebLangDetail deleted successfully');
+            return redirect()->route('website_extra_localization')->with('success-message', 'WebLanguageDetail deleted successfully');
         } else {
             return redirect()->route('website_extra_localization')->with('error-message', 'An unhandled error occurred');
         }

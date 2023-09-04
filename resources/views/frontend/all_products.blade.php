@@ -15,7 +15,7 @@
             <!-- Shop Sidebar Start -->
             <div class="col-lg-3 col-md-4">
                 <!-- Price Start -->
-                <!-- <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+                <!-- <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ webTranslation('filterbyprice') }}</span></h5>
                 <div class="bg-light p-4 mb-30">
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="checkbox" class="custom-control-input" checked id="price-all">
@@ -48,7 +48,7 @@
                         <span class="badge border font-weight-normal">168</span>
                     </div>
                 </div> -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ webTranslation('filterbyprice') }}</span></h5>
                 <div class="bg-light p-4 mb-30">
                     <!-- All Price option -->
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -84,7 +84,7 @@
                 <input type="hidden" name="selected_price_ranges" id="selected_price_ranges" value="">
 
                 <!-- Color Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by color</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ webTranslation('filterbycolor') }}</span></h5>
                 <div class="bg-light p-4 mb-30">
                     <!-- All Color option -->
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -104,7 +104,7 @@
                 <!-- Color End -->
 
                 <!-- Size Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by size</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ webTranslation('filterbysize') }}</span></h5>
                 <div class="bg-light p-4 mb-30">
                     <!-- All Size option -->
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -122,7 +122,7 @@
                     @endforeach
                 </div>
                 <!-- Size End -->
-                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                <button type="submit" class="btn btn-primary">{{ webTranslation('applyfilter') }}</button>
             </div>
             <!-- Shop Sidebar End -->
 

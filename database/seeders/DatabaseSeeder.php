@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(AdminUserSeeder::class);
+        $this->call(SettingsTableSeeder::class);
+        $this->call(LanguagesTableSeeder::class);
+        $this->call(WebLanguageDetailTableSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }

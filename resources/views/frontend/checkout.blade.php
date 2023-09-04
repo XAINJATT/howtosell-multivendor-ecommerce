@@ -66,7 +66,7 @@
                 </div>
             </div>
 {{--            <div class="collapse mb-5" id="shipping-address">--}}
-{{--                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>--}}
+{{--                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ webTranslation('shipping') }} Address</span></h5>--}}
 {{--                <div class="bg-light p-30">--}}
 {{--                    <div class="row">--}}
 {{--                        <div class="col-md-6 form-group">--}}
@@ -122,7 +122,7 @@
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
             <div class="bg-light p-30 mb-5">
                 <div class="border-bottom">
-                    <h6 class="mb-3">Products</h6>
+                    <h6 class="mb-3">{{ webTranslation('products') }}</h6>
                     @foreach($cart as $item)
                     <div class="d-flex justify-content-between">
                         <p>{{$item->name}}</p>
@@ -132,11 +132,11 @@
                 </div>
                 <div class="border-bottom pt-3 pb-2">
                     <div class="d-flex justify-content-between mb-2">
-                        <h6>Subtotal</h6>
+                        <h6>{{ webTranslation('subtotal') }}</h6>
                         <h6>${{$total}}</h6>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
-                        <h6 class="font-weight-medium">Shipping</h6>
+                        <h6 class="font-weight-medium">{{ webTranslation('shipping') }}</h6>
                         <h6 class="font-weight-medium">${{$shipping_amount}}</h6>
                     </div>
                     @if($coupon_amount>0)
